@@ -158,11 +158,11 @@ section{
     }
 
     41%,60%{
-        content: "Designer";
+        content: "Game Developer";
     }
 
     61%,80%{
-        content: "Videographer";
+        content: "Hardware Enthusiast";
     }
 
     81%,100%{
@@ -427,9 +427,6 @@ header{
     animation: fillAnimation 2s ease;
 }
 
-
-/* DIFFERENT WIDTHS */
-
 .html{
     width: 90%;
     background: linear-gradient(to right, #ff512f, #dd2476);
@@ -487,4 +484,173 @@ header{
         width: 0;
     }
 
+}
+
+.certificate-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+}
+
+.certificate-card{
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 3rem;
+    border-radius: 20px;
+    text-align: center;
+    transition: 0.4s ease;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.certificate-card:hover{
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+}
+
+.certificate-card i{
+    font-size: 5rem;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.certificate-card h3{
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.certificate-card p{
+    font-size: 1.6rem;
+    line-height: 1.8;
+    color: #ddd;
+}
+
+
+.certificate-card::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.15),
+        transparent
+    );
+
+    top: 0;
+    left: -100%;
+    transition: 0.8s;
+}
+
+.certificate-card:hover::before{
+    left: 100%;
+}
+
+
+.certificate-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+}
+
+.certificate-card{
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    overflow: hidden;
+    text-align: center;
+    transition: 0.4s ease;
+    backdrop-filter: blur(10px);
+}
+
+.certificate-card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+}
+
+.certificate-card img{
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: 0.4s ease;
+}
+
+.certificate-card:hover img{
+    transform: scale(1.05);
+}
+
+.certificate-card h3{
+    font-size: 2.2rem;
+    margin: 2rem 0;
+}
+
+.view-btn{
+    display: inline-block;
+    margin-bottom: 2rem;
+    padding: 1rem 2.5rem;
+    border: 2px solid white;
+    border-radius: 30px;
+    color: white;
+    font-size: 1.5rem;
+    transition: 0.3s ease;
+}
+
+.view-btn:hover{
+    background: white;
+    color: black;
+}
+
+.certificate-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+}
+
+.certificate-card{
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    overflow: hidden;
+    text-align: center;
+    transition: 0.4s ease;
+    backdrop-filter: blur(10px);
+}
+
+.certificate-card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 0 30px rgba(255,255,255,0.2);
+}
+
+.certificate-card img{
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: 0.4s ease;
+}
+
+.certificate-card:hover img{
+    transform: scale(1.05);
+}
+
+.certificate-card h3{
+    font-size: 2.2rem;
+    margin: 2rem 0;
+}
+
+.view-btn{
+    display: inline-block;
+    margin-bottom: 2rem;
+    padding: 1rem 2.5rem;
+    border: 2px solid white;
+    border-radius: 30px;
+    color: white;
+    font-size: 1.5rem;
+    transition: 0.3s ease;
+}
+
+.view-btn:hover{
+    background: white;
+    color: black;
 }
