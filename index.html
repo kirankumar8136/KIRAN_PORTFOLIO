@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Kiran Kumar Portfolio</title>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">KIRAN KUMAR K</a>
+
+        <nav>
+            <a href="#home" class="active">Home</a>
+            <a href="#skills">Skills</a>
+            <a href="#education">Education</a>
+            <a href="https://github.com/kirankumar8136/INTERNSHIP_SEM1/tree/main/KIRAN_PHASE_2/mini%20projects">Projects</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="home reveal active" id="home">
+        <div class="home-img">
+            <img src="KIRAN.jpeg" alt="">
+        </div>
+
+        <div class="home-content">
+            <h1>Hi, It's <span>Kiran</span></h1>
+            <h3 class="typing-text">I'm a <span></span></h3>
+
+            <p>
+                Passionate creator with strong knowledge in IT, design,
+                videography, CAD, 3D modeling and computer hardware.
+                Currently pursuing BCA Honors with AI & Data Science.
+            </p>
+
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/kiran-kumar-k-3667b22a7?utm_source=share_via&utm_content=profile&utm_medium=member_android"><i class="fa-brands fa-linkedin-in"></i></a>
+
+                <a href="https://github.com/kirankumar8136">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+
+                <a href="https://www.instagram.com/kiran.official._?igsh=MXFxcGVzbW1kZnY1dg==">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <a href="https://www.facebook.com/share/1CiBdN9zvA/">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+            </div>
+
+            <a href="#contact" class="btn">Hire Me</a>
+        </div>
+    </section>
+
+<section class="section reveal" id="skills">
+
+    <h2 class="section-title">My Skills</h2>
+
+    <div class="skills-container">
+
+        <div class="skill-box">
+            <span>HTML</span>
+            <div class="skill-bar">
+                <div class="skill-fill html">97%</div>
+            </div>
+        </div>
+
+        <div class="skill-box">
+            <span>CSS</span>
+            <div class="skill-bar">
+                <div class="skill-fill css">95%</div>
+            </div>
+        </div>
+
+        <div class="skill-box">
+            <span>JavaScript</span>
+            <div class="skill-bar">
+                <div class="skill-fill js">86%</div>
+            </div>
+        </div>
+
+        <div class="skill-box">
+            <span>React</span>
+            <div class="skill-bar">
+                <div class="skill-fill react">80%</div>
+            </div>
+        </div>
+
+        <div class="skill-box">
+            <span>Video Editing</span>
+            <div class="skill-bar">
+                <div class="skill-fill video">95%</div>
+            </div>
+        </div>
+
+        <div class="skill-box">
+            <span>3D Modeling</span>
+            <div class="skill-bar">
+                <div class="skill-fill modeling">97%</div>
+            </div>
+        </div>
+
+        <div class="skill-box">
+            <span>CAD Designing</span>
+            <div class="skill-bar">
+                <div class="skill-fill cad">95%</div>
+            </div>
+        </div>
+
+        <div class="skill-box">
+            <span>Videography</span>
+            <div class="skill-bar">
+                <div class="skill-fill photo">88%</div>
+            </div>
+        </div>
+
+        <div class="skill-box">
+            <span>Computer Hardware</span>
+            <div class="skill-bar">
+                <div class="skill-fill hardware">99%</div>
+            </div>
+        </div>
+
+        <div class="skill-box">
+            <span>Public Speaking</span>
+            <div class="skill-bar">
+                <div class="skill-fill speaking">92%</div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+    <section class="section reveal" id="education">
+
+        <h2 class="section-title">Education</h2>
+
+        <div class="info-box">
+
+            <h3>BCA Honors with AI & Data Science</h3>
+
+            <p>
+                Pursuing BCA Honors with specialization in
+                Artificial Intelligence and Data Science
+                from Don Bosco College Mampetta,
+                Mukkam, Kozhikode, Kerala.
+            </p>
+
+        </div>
+
+    </section>
+
+    <section class="section reveal" id="experience">
+
+        <h2 class="section-title">Experience</h2>
+
+        <div class="info-box">
+
+            <h3>5 Years Experience</h3>
+
+            <p>
+                Experienced in video editing, 3D modeling,
+                interior designing, CAD, videography,
+                public speaking, and IT related works.
+            </p>
+
+        </div>
+
+    </section>
+
+    <section class="section reveal" id="contact">
+
+        <h2 class="section-title">Contact</h2>
+
+        <div class="contact-box">
+
+            <p><strong>Phone:</strong> 8136997261</p>
+            <p><strong>Phone:</strong> 9400066110</p>
+
+            <p>
+                <strong>Email:</strong>
+                kirankollolath2020@gmail.com
+            </p>
+
+            <p>
+                <strong>Address:</strong>
+                Theertham House,<br>
+                Karattuthazham Konott P.O,<br>
+                Parambil Bazar,<br>
+                Kozhikode, Kerala
+            </p>
+
+        </div>
+
+    </section>
+
+<script>
+
+window.addEventListener("scroll", reveal);
+
+function reveal(){
+
+    let reveals = document.querySelectorAll(".reveal");
+
+    for(let i = 0; i < reveals.length; i++){
+
+        let windowHeight = window.innerHeight;
+        let revealTop = reveals[i].getBoundingClientRect().top;
+        let revealPoint = 100;
+
+        if(revealTop < windowHeight - revealPoint){
+            reveals[i].classList.add("active");
+        }
+    }
+}
+
+</script>
+
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+<div class="glow glow3"></div>
+
+<script>
+
+let sections = document.querySelectorAll("section");
+let navLinks = document.querySelectorAll("header nav a");
+
+window.onscroll = () => {
+
+    let top = window.scrollY;
+
+    sections.forEach(sec => {
+
+        let offset = sec.offsetTop - 150;
+        let height = sec.offsetHeight;
+        let id = sec.getAttribute("id");
+
+        if(top >= offset && top < offset + height){
+
+            navLinks.forEach(link => {
+                link.classList.remove("active");
+            });
+
+            document.querySelector("header nav a[href*=" + id + "]")
+            .classList.add("active");
+        }
+
+    });
+
+};
+
+</script>
+
+</body>
+</html>
