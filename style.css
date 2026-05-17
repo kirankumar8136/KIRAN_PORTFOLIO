@@ -428,22 +428,22 @@ header{
 }
 
 .html{
-    width: 90%;
+    width: 97%;
     background: linear-gradient(to right, #ff512f, #dd2476);
 }
 
 .css{
-    width: 85%;
+    width: 95%;
     background: linear-gradient(to right, #2193b0, #6dd5ed);
 }
 
 .js{
-    width: 70%;
+    width: 86%;
     background: linear-gradient(to right, #f7971e, #ffd200);
 }
 
 .react{
-    width: 65%;
+    width: 80%;
     background: linear-gradient(to right, #00c6ff, #0072ff);
 }
 
@@ -453,27 +453,27 @@ header{
 }
 
 .modeling{
-    width: 85%;
+    width: 97%;
     background: linear-gradient(to right, #11998e, #38ef7d);
 }
 
 .cad{
-    width: 80%;
+    width: 95%;
     background: linear-gradient(to right, #ee0979, #ff6a00);
 }
 
 .photo{
-    width: 88%;
+    width: 92%;
     background: linear-gradient(to right, #8e2de2, #4a00e0);
 }
 
 .hardware{
-    width: 90%;
+    width: 99%;
     background: linear-gradient(to right, #56ab2f, #a8e063);
 }
 
 .speaking{
-    width: 92%;
+    width: 96%;
     background: linear-gradient(to right, #614385, #516395);
 }
 
