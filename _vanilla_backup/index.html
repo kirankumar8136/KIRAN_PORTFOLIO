@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiran Kumar K | AI, 3D Architecture & Game Technology Portfolio</title>
+    
+    <!-- Google Fonts: Space Grotesk, Syne, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!-- Main Style -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Three.js (r128) for 3D Graphics -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body class="cyber-theme">
+
+    <!-- 3D WebGL Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Scanline & Noise Overlay for Sci-Fi Depth -->
+    <div class="cyber-overlay"></div>
+
+    <!-- ==========================================
+         TOP HUD NAVIGATION
+         ========================================== -->
+    <header class="hud-header">
+        <div class="header-inner">
+            <a href="#home" class="cyber-logo">
+                <span class="logo-bracket">[</span>
+                <span class="logo-text">KIRAN<span class="neon-accent">.DEV</span></span>
+                <span class="logo-bracket">]</span>
+                <span class="live-dot" title="Systems Online"></span>
+            </a>
+
+            <nav id="navbar" class="hud-nav">
+                <a href="#home" class="nav-link active"><span class="nav-num">01</span> Home</a>
+                <a href="#lab" class="nav-link"><span class="nav-num">02</span> 3D Lab</a>
+                <a href="#skills" class="nav-link"><span class="nav-num">03</span> Skills</a>
+                <a href="#education" class="nav-link"><span class="nav-num">04</span> Education</a>
+                <a href="#certificates" class="nav-link"><span class="nav-num">05</span> Certificates</a>
+                <a href="#experience" class="nav-link"><span class="nav-num">06</span> Experience</a>
+                <a href="#contact" class="nav-link"><span class="nav-num">07</span> Contact</a>
+            </nav>
+
+            <div class="header-actions">
+                <!-- Audio FX Synthesizer Toggle -->
+                <button id="audio-toggle" class="hud-btn icon-only" title="Toggle UI Audio Feedback">
+                    <i class="fa-solid fa-volume-xmark"></i>
+                </button>
+
+                <!-- 3D Environment Controller Toggle -->
+                <button id="hud-toggle" class="hud-btn" title="Configure 3D Environment">
+                    <i class="fa-solid fa-cube"></i>
+                    <span class="btn-text">3D FX</span>
+                </button>
+
+                <!-- Mobile Menu Hamburger -->
+                <button class="mobile-toggle" id="menu-icon" aria-label="Toggle navigation menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         FLOATING 3D ENVIRONMENT HUD CONTROLLER
+         ========================================== -->
+    <div id="hud-panel" class="cyber-hud-panel">
+        <div class="hud-panel-header">
+            <span class="hud-title"><i class="fa-solid fa-sliders"></i> 3D ENGINE CONTROLLER</span>
+            <span class="hud-status">GPU ACTIVE</span>
+        </div>
+        <div class="hud-section">
+            <span class="hud-label">ENVIRONMENT MODE</span>
+            <div class="hud-button-group">
+                <button class="hud-opt-btn active" data-3d-mode="constellation">
+                    <i class="fa-solid fa-network-wired"></i> Neural Mesh
+                </button>
+                <button class="hud-opt-btn" data-3d-mode="grid">
+                    <i class="fa-solid fa-border-all"></i> Cyber Wave
+                </button>
+                <button class="hud-opt-btn" data-3d-mode="quantum">
+                    <i class="fa-solid fa-atom"></i> Quantum Core
+                </button>
+            </div>
+        </div>
+        <div class="hud-section">
+            <span class="hud-label">CHROMATIC SPECTRUM</span>
+            <div class="hud-color-swatches">
+                <button class="color-swatch cyan active" data-3d-theme="cyan" title="Cyber Cyan"></button>
+                <button class="color-swatch violet" data-3d-theme="violet" title="Neon Violet"></button>
+                <button class="color-swatch matrix" data-3d-theme="matrix" title="Matrix Emerald"></button>
+                <button class="color-swatch amber" data-3d-theme="amber" title="Solar Flare"></button>
+            </div>
+        </div>
+        <div class="hud-footer">
+            <small>// Real-time WebGL Parallax & Physics</small>
+        </div>
+    </div>
+
+    <main>
+        <!-- ==========================================
+             HERO TRANSMISSION SECTION
+             ========================================== -->
+        <section class="hero-section" id="home">
+            <div class="hero-grid">
+                
+                <!-- Left: Hero Intel -->
+                <div class="hero-intel">
+                    <div class="status-badge">
+                        <span class="pulse-indicator"></span>
+                        <span class="badge-text">STATUS: AVAILABLE FOR SELECT OPPORTUNITIES</span>
+                    </div>
+
+                    <div class="hero-title-group">
+                        <p class="hero-greeting">// HELLO WORLD, THIS IS</p>
+                        <h1 class="hero-name">KIRAN <span class="neon-text">KUMAR K</span></h1>
+                        <div class="typewriter-container">
+                            <span class="terminal-prefix">&gt;</span>
+                            <span id="dynamic-typewriter" class="typing-target"></span>
+                            <span class="typing-cursor">_</span>
+                        </div>
+                    </div>
+
+                    <p class="hero-bio">
+                        Multidisciplinary creator engineering next-generation experiences at the intersection of 
+                        <strong>Artificial Intelligence</strong>, <strong>3D Architectural CAD</strong>, 
+                        <strong>Unreal Engine Game Development</strong>, and <strong>Enterprise Hardware Systems</strong>. 
+                        Currently pursuing BCA Honors in AI & Data Science.
+                    </p>
+
+                    <!-- Quick Metrics Matrix -->
+                    <div class="hero-metrics">
+                        <div class="metric-box">
+                            <span class="metric-num">5+</span>
+                            <span class="metric-label">Years 3D & Design</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="metric-num">BCA</span>
+                            <span class="metric-label">AI & Data Science</span>
+                        </div>
+                        <div class="metric-box">
+                            <span class="metric-num">99%</span>
+                            <span class="metric-label">Hardware Prowess</span>
+                        </div>
+                    </div>
+
+                    <!-- Hero Call to Actions -->
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn btn-cyber-primary">
+                            <span>Initiate Contact</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#lab" class="btn btn-cyber-secondary">
+                            <i class="fa-solid fa-cube"></i>
+                            <span>Interactive 3D Lab</span>
+                        </a>
+                        <a href="Arc cirtificate.pdf" target="_blank" class="btn btn-cyber-ghost" title="AutoDesk Certificate PDF">
+                            <i class="fa-solid fa-certificate"></i>
+                            <span>Credentials</span>
+                        </a>
+                    </div>
+
+                    <!-- Social Conduits -->
+                    <div class="social-conduits">
+                        <span class="conduit-title">// CONNECT:</span>
+                        <div class="conduit-links">
+                            <a href="https://www.linkedin.com/in/kiran-kumar-k-3667b22a7?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" aria-label="LinkedIn" class="social-circle">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </a>
+                            <a href="https://github.com/kirankumar8136" target="_blank" aria-label="GitHub" class="social-circle">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                            <a href="https://www.instagram.com/kiran.official._?igsh=MXFxcGVzbW1kZnY1dg==" target="_blank" aria-label="Instagram" class="social-circle">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="https://www.facebook.com/share/1CiBdN9zvA/" target="_blank" aria-label="Facebook" class="social-circle">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: 3D Holographic Avatar Frame -->
+                <div class="hero-visual">
+                    <div class="holo-frame-wrapper tilt-card">
+                        
+                        <!-- HUD Corner Markers -->
+                        <span class="corner-bracket top-left"></span>
+                        <span class="corner-bracket top-right"></span>
+                        <span class="corner-bracket bottom-left"></span>
+                        <span class="corner-bracket bottom-right"></span>
+
+                        <!-- Orbital 3D Tech Rings -->
+                        <div class="orbital-ring ring-outer"></div>
+                        <div class="orbital-ring ring-middle"></div>
+                        <div class="orbital-ring ring-inner"></div>
+
+                        <!-- Scanner Line FX -->
+                        <div class="scanner-sweep"></div>
+
+                        <!-- Portrait Image (Centerpiece) -->
+                        <div class="avatar-portal">
+                            <img src="kiran.jpg" alt="Kiran Kumar K" class="avatar-img" loading="eager">
+                        </div>
+
+                        <!-- Floating Cyber Tags -->
+                        <div class="float-tag tag-top">
+                            <i class="fa-solid fa-cube"></i>
+                            <span>3D ARCHITECT</span>
+                        </div>
+                        <div class="float-tag tag-bottom">
+                            <i class="fa-solid fa-brain"></i>
+                            <span>AI & DATA SCIENCE</span>
+                        </div>
+                        <div class="float-tag tag-right">
+                            <i class="fa-solid fa-gamepad"></i>
+                            <span>UNREAL ENGINE</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================
+             INTERACTIVE 3D LAB (Dedicated WebGL Playground)
+             ========================================== -->
+        <section class="section reveal-on-scroll" id="lab">
+            <div class="section-header">
+                <span class="section-tag">// 02 • REAL-TIME GRAPHICS</span>
+                <h2 class="section-heading">INTERACTIVE <span class="neon-text">3D LAB</span></h2>
+                <p class="section-sub">Directly manipulate mathematical geometries and wireframe shaders with real-time lighting physics.</p>
+            </div>
+
+            <div class="lab-container tilt-card">
+                <!-- 3D Canvas Area -->
+                <div class="lab-viewport">
+                    <canvas id="lab-3d-canvas"></canvas>
+                    <div class="viewport-hints">
+                        <span><i class="fa-solid fa-hand-pointer"></i> Click & Drag to Rotate in 3D Space</span>
+                    </div>
+                </div>
+
+                <!-- 3D Lab Controls Sidecar -->
+                <div class="lab-controls">
+                    <div class="control-box">
+                        <span class="control-box-title"><i class="fa-solid fa-shapes"></i> GEOMETRIC PRIMITIVE</span>
+                        <div class="lab-pill-grid">
+                            <button class="lab-pill active" data-lab-shape="torus">Torus Knot</button>
+                            <button class="lab-pill" data-lab-shape="icosahedron">Icosahedron</button>
+                            <button class="lab-pill" data-lab-shape="octahedron">Octahedron</button>
+                            <button class="lab-pill" data-lab-shape="sphere">Sphere Mesh</button>
+                        </div>
+                    </div>
+
+                    <div class="control-box">
+                        <span class="control-box-title"><i class="fa-solid fa-palette"></i> EMISSIVE SPECTRUM</span>
+                        <div class="lab-pill-grid">
+                            <button class="lab-pill active" data-lab-color="#00f0ff">Cyan Laser</button>
+                            <button class="lab-pill" data-lab-color="#ec4899">Neon Pink</button>
+                            <button class="lab-pill" data-lab-color="#10b981">Emerald Grid</button>
+                            <button class="lab-pill" data-lab-color="#f59e0b">Amber Core</button>
+                        </div>
+                    </div>
+
+                    <div class="control-box">
+                        <span class="control-box-title"><i class="fa-solid fa-wrench"></i> SHADER RENDER MODE</span>
+                        <button class="btn btn-cyber-secondary w-full" id="toggle-wireframe-btn">
+                            <i class="fa-solid fa-vector-square"></i>
+                            <span>Toggle Wireframe / Solid</span>
+                        </button>
+                    </div>
+
+                    <div class="lab-stats-terminal">
+                        <div class="stat-row">
+                            <span class="stat-k">RENDERER</span>
+                            <span class="stat-v">WebGL 2.0 / Three.js</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-k">LIGHTING</span>
+                            <span class="stat-v">Dual Point + Ambient Dynamic</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-k">FRAME RATE</span>
+                            <span class="stat-v neon-accent">60.0 FPS LOCKED</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SKILLS MATRIX COMMAND CENTER
+             ========================================== -->
+        <section class="section reveal-on-scroll" id="skills">
+            <div class="section-header">
+                <span class="section-tag">// 03 • CORE COMPETENCIES</span>
+                <h2 class="section-heading">DOMAIN <span class="neon-text">EXPERTISE</span></h2>
+                <p class="section-sub">Comprehensive technical mastery across intelligent software, spatial design, and hardware engineering.</p>
+            </div>
+
+            <div class="skills-matrix">
+                
+                <!-- Category 1: AI & Modern Development -->
+                <div class="skill-category-card tilt-card">
+                    <div class="card-glow"></div>
+                    <div class="category-header">
+                        <div class="cat-icon"><i class="fa-solid fa-microchip"></i></div>
+                        <div>
+                            <h3 class="cat-title">AI & Web Development</h3>
+                            <span class="cat-sub">Algorithms & Frontend Engineering</span>
+                        </div>
+                    </div>
+                    <div class="skill-meter-list">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">HTML5 / Semantic Web</span>
+                                <span class="skill-pct">97%</span>
+                            </div>
+                            <div class="cyber-track"><div class="cyber-fill" style="--target-w: 97%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">CSS3 / Modern Layouts & Animations</span>
+                                <span class="skill-pct">95%</span>
+                            </div>
+                            <div class="cyber-track"><div class="cyber-fill" style="--target-w: 95%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">JavaScript (ES6+ / WebGL APIs)</span>
+                                <span class="skill-pct">86%</span>
+                            </div>
+                            <div class="cyber-track"><div class="cyber-fill" style="--target-w: 86%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">React.js Component Architecture</span>
+                                <span class="skill-pct">80%</span>
+                            </div>
+                            <div class="cyber-track"><div class="cyber-fill" style="--target-w: 80%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 2: 3D Architecture & Spatial Design -->
+                <div class="skill-category-card tilt-card">
+                    <div class="card-glow"></div>
+                    <div class="category-header">
+                        <div class="cat-icon"><i class="fa-solid fa-cube"></i></div>
+                        <div>
+                            <h3 class="cat-title">3D & Spatial Design</h3>
+                            <span class="cat-sub">CAD Modeling & Architectural Visualization</span>
+                        </div>
+                    </div>
+                    <div class="skill-meter-list">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">CAD Architectural Drafting</span>
+                                <span class="skill-pct">95%</span>
+                            </div>
+                            <div class="cyber-track"><div class="cyber-fill" style="--target-w: 95%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Blender 3D Modeling & Lighting</span>
+                                <span class="skill-pct">97%</span>
+                            </div>
+                            <div class="cyber-track"><div class="cyber-fill" style="--target-w: 97%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Architectural Visualization</span>
+                                <span class="skill-pct">94%</span>
+                            </div>
+                            <div class="cyber-track"><div class="cyber-fill" style="--target-w: 94%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Spatial Space Planning & Elevation</span>
+                                <span class="skill-pct">92%</span>
+                            </div>
+                            <div class="cyber-track"><div class="cyber-fill" style="--target-w: 92%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 3: Hardware & Game Systems -->
+                <div class="skill-category-card tilt-card">
+                    <div class="card-glow"></div>
+                    <div class="category-header">
+                        <div class="cat-icon"><i class="fa-solid fa-gamepad"></i></div>
+                        <div>
+                            <h3 class="cat-title">Hardware & Game Engines</h3>
+                            <span class="cat-sub">Unreal Engine & Rig Engineering</span>
+                        </div>
+                    </div>
+                    <div class="skill-meter-list">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Computer Hardware & Troubleshooting</span>
+                                <span class="skill-pct">99%</span>
+                            </div>
+                            <div class="cyber-track"><div class="cyber-fill" style="--target-w: 99%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Unreal Engine Game Development</span>
+                                <span class="skill-pct">88%</span>
+                            </div>
+                            <div class="cyber-track"><div class="cyber-fill" style="--target-w: 88%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">System Diagnostics & Infrastructure</span>
+                                <span class="skill-pct">96%</span>
+                            </div>
+                            <div class="cyber-track"><div class="cyber-fill" style="--target-w: 96%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Interactive Real-time Logic</span>
+                                <span class="skill-pct">85%</span>
+                            </div>
+                            <div class="cyber-track"><div class="cyber-fill" style="--target-w: 85%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 4: Media Production & Oratory -->
+                <div class="skill-category-card tilt-card">
+                    <div class="card-glow"></div>
+                    <div class="category-header">
+                        <div class="cat-icon"><i class="fa-solid fa-film"></i></div>
+                        <div>
+                            <h3 class="cat-title">Media & Oratory</h3>
+                            <span class="cat-sub">Cinematics & Public Speaking</span>
+                        </div>
+                    </div>
+                    <div class="skill-meter-list">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Video Editing & Motion Graphics</span>
+                                <span class="skill-pct">95%</span>
+                            </div>
+                            <div class="cyber-track"><div class="cyber-fill" style="--target-w: 95%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Cinematic Videography</span>
+                                <span class="skill-pct">92%</span>
+                            </div>
+                            <div class="cyber-track"><div class="cyber-fill" style="--target-w: 92%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Public Speaking & Communication</span>
+                                <span class="skill-pct">92%</span>
+                            </div>
+                            <div class="cyber-track"><div class="cyber-fill" style="--target-w: 92%;"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span class="skill-name">Creative Direction & Storyboarding</span>
+                                <span class="skill-pct">90%</span>
+                            </div>
+                            <div class="cyber-track"><div class="cyber-fill" style="--target-w: 90%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================
+             ACADEMIC FOUNDATION & EXCELLENCE
+             ========================================== -->
+        <section class="section reveal-on-scroll" id="education">
+            <div class="section-header">
+                <span class="section-tag">// 04 • ACADEMIC PILLARS</span>
+                <h2 class="section-heading">EDUCATION & <span class="neon-text">ACADEMIA</span></h2>
+                <p class="section-sub">Rigorous formal training in artificial intelligence, mathematics, and data sciences.</p>
+            </div>
+
+            <div class="education-grid">
+                
+                <!-- Main Degree Card -->
+                <div class="cyber-glass-box tilt-card">
+                    <div class="box-badge"><i class="fa-solid fa-graduation-cap"></i> DEGREE PURSUIT</div>
+                    <h3 class="box-title">BCA Honors with AI & Data Science</h3>
+                    <p class="institution-name">
+                        <i class="fa-solid fa-building-columns"></i> Don Bosco College Mampetta
+                    </p>
+                    <span class="location-tag"><i class="fa-solid fa-location-dot"></i> Mukkam, Kozhikode, Kerala</span>
+                    
+                    <p class="box-desc">
+                        Undergoing comprehensive degree curriculum focusing on Artificial Intelligence concepts, 
+                        Machine Learning algorithms, Data Structures, Modern Object-Oriented Paradigms, 
+                        Database Engineering, and Applied Computer Science frameworks.
+                    </p>
+
+                    <div class="curriculum-tags">
+                        <span class="tag">Artificial Intelligence</span>
+                        <span class="tag">Data Science</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Data Analysis</span>
+                        <span class="tag">Algorithms</span>
+                    </div>
+                </div>
+
+                <!-- Academic Excellence & College Recognition -->
+                <div class="cyber-glass-box tilt-card">
+                    <div class="box-badge"><i class="fa-solid fa-award"></i> DISTINCTIONS</div>
+                    <h3 class="box-title">Academic & Domain Excellence</h3>
+                    <p class="institution-name">
+                        <i class="fa-solid fa-trophy"></i> Multi-Disciplinary College Achievements
+                    </p>
+                    <span class="location-tag"><i class="fa-solid fa-star"></i> Curricular & Co-Curricular Accolades</span>
+                    
+                    <p class="box-desc">
+                        Active participant and recognized contributor across technical symposiums, 
+                        creative media leadership, CAD design competitions, and technology initiatives.
+                    </p>
+
+                    <div class="card-action-bar">
+                        <button class="btn btn-cyber-secondary" 
+                                data-modal-target 
+                                data-modal-url="tags.jpeg" 
+                                data-modal-title="Academic & Activity Badges" 
+                                data-modal-type="image">
+                            <i class="fa-solid fa-image"></i> Inspect Verification Badges
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CREDENTIALS & CERTIFICATION REGISTRY
+             ========================================== -->
+        <section class="section reveal-on-scroll" id="certificates">
+            <div class="section-header">
+                <span class="section-tag">// 05 • VERIFIED CREDENTIALS</span>
+                <h2 class="section-heading">CERTIFICATIONS & <span class="neon-text">RECORDS</span></h2>
+                <p class="section-sub">Formally verified competencies from industry recognized institutions and specialized academies.</p>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="cert-filters">
+                <button class="cert-filter-btn active" data-filter="all">All Disciplines</button>
+                <button class="cert-filter-btn" data-filter="arch">3D & CAD</button>
+                <button class="cert-filter-btn" data-filter="dev">Software & Web</button>
+                <button class="cert-filter-btn" data-filter="hard">Hardware & Gaming</button>
+            </div>
+
+            <div class="cert-grid">
+                
+                <!-- 1. AutoDesk Architectural Designing -->
+                <div class="cert-card tilt-card" data-category="arch">
+                    <div class="cert-icon-wrapper">
+                        <i class="fa-solid fa-city"></i>
+                    </div>
+                    <div class="cert-details">
+                        <span class="cert-issuer">AutoDesk Authorized Institution</span>
+                        <h4 class="cert-name">Professional Architectural Designing</h4>
+                        <p class="cert-summary">Certified in advanced CAD drafting, architectural floor plans, spatial planning, and structural elevations.</p>
+                    </div>
+                    <div class="cert-actions">
+                        <button class="btn btn-cyber-primary w-full" 
+                                data-modal-target 
+                                data-modal-url="Arc cirtificate.pdf" 
+                                data-modal-title="AutoDesk Architectural Designing Certificate" 
+                                data-modal-type="pdf">
+                            <i class="fa-solid fa-file-pdf"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. Professional 3D Modeling (Blender) -->
+                <div class="cert-card tilt-card" data-category="arch">
+                    <div class="cert-icon-wrapper">
+                        <i class="fa-solid fa-cube"></i>
+                    </div>
+                    <div class="cert-details">
+                        <span class="cert-issuer">Certified 3D Professional</span>
+                        <h4 class="cert-name">3D Modeling & Visualization</h4>
+                        <p class="cert-summary">Certified in 3D polygonal modeling, lighting rigs, realistic material shading, and spatial environment rendering.</p>
+                    </div>
+                    <div class="cert-actions">
+                        <button class="btn btn-cyber-primary w-full" 
+                                data-modal-target 
+                                data-modal-url="blender.jpg" 
+                                data-modal-title="3D Modeling & Architectural Visualization Certification" 
+                                data-modal-type="image">
+                            <i class="fa-solid fa-image"></i> View Certificate
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. Frontend Web Development -->
+                <div class="cert-card tilt-card" data-category="dev">
+                    <div class="cert-icon-wrapper">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <div class="cert-details">
+                        <span class="cert-issuer">Web Technologies Guild</span>
+                        <h4 class="cert-name">Frontend Web Engineering</h4>
+                        <p class="cert-summary">Full mastery certification in responsive layouts, modern JavaScript ES6+, HTML5 standards, and CSS architecture.</p>
+                    </div>
+                    <div class="cert-actions">
+                        <button class="btn btn-cyber-secondary w-full" 
+                                data-modal-target 
+                                data-modal-url="blender.jpg" 
+                                data-modal-title="Frontend Web Development Certification" 
+                                data-modal-type="image">
+                            <i class="fa-solid fa-shield-halved"></i> Inspect Record
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4. Game Development (Unreal Engine) -->
+                <div class="cert-card tilt-card" data-category="hard">
+                    <div class="cert-icon-wrapper">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <div class="cert-details">
+                        <span class="cert-issuer">Interactive Game Systems</span>
+                        <h4 class="cert-name">Unreal Engine Game Development</h4>
+                        <p class="cert-summary">Training in Unreal Engine real-time pipelines, game architecture, asset importing, level composition, and gameplay blueprints.</p>
+                    </div>
+                    <div class="cert-actions">
+                        <button class="btn btn-cyber-secondary w-full" 
+                                data-modal-target 
+                                data-modal-url="blender.jpg" 
+                                data-modal-title="Unreal Engine Game Development Certification" 
+                                data-modal-type="image">
+                            <i class="fa-solid fa-shield-halved"></i> Inspect Record
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 5. Computer Hardware & Maintenance -->
+                <div class="cert-card tilt-card" data-category="hard">
+                    <div class="cert-icon-wrapper">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </div>
+                    <div class="cert-details">
+                        <span class="cert-issuer">Hardware Systems Engineering</span>
+                        <h4 class="cert-name">Hardware Troubleshooting & Rigging</h4>
+                        <p class="cert-summary">Specialized qualification in component diagnostics, custom workstation assembly, BIOS configuration, and thermal optimization.</p>
+                    </div>
+                    <div class="cert-actions">
+                        <button class="btn btn-cyber-secondary w-full" 
+                                data-modal-target 
+                                data-modal-url="blender.jpg" 
+                                data-modal-title="Computer Hardware Training Record" 
+                                data-modal-type="image">
+                            <i class="fa-solid fa-shield-halved"></i> Inspect Record
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 6. Computer Software & Enterprise Applications -->
+                <div class="cert-card tilt-card" data-category="dev">
+                    <div class="cert-icon-wrapper">
+                        <i class="fa-solid fa-cubes-stacked"></i>
+                    </div>
+                    <div class="cert-details">
+                        <span class="cert-issuer">Software Applications Board</span>
+                        <h4 class="cert-name">Computer Software & Productivity</h4>
+                        <p class="cert-summary">Certified across enterprise software applications, productivity ecosystems, technical documentation, and data processing workflows.</p>
+                    </div>
+                    <div class="cert-actions">
+                        <button class="btn btn-cyber-secondary w-full" 
+                                data-modal-target 
+                                data-modal-url="blender.jpg" 
+                                data-modal-title="Computer Software Certification" 
+                                data-modal-type="image">
+                            <i class="fa-solid fa-shield-halved"></i> Inspect Record
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================
+             EXPERIENCE & MILESTONES TIMELINE
+             ========================================== -->
+        <section class="section reveal-on-scroll" id="experience">
+            <div class="section-header">
+                <span class="section-tag">// 06 • TRACK RECORD</span>
+                <h2 class="section-heading">EXPERIENCE & <span class="neon-text">TRAJECTORY</span></h2>
+                <p class="section-sub">Over half a decade of relentless execution across architecture, digital media, and computing.</p>
+            </div>
+
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+
+                <!-- Milestone 1 -->
+                <div class="timeline-node tilt-card">
+                    <div class="node-marker"></div>
+                    <div class="node-content">
+                        <div class="node-header">
+                            <span class="node-year">2021 — PRESENT</span>
+                            <span class="node-badge">5+ YEARS CUMULATIVE</span>
+                        </div>
+                        <h3 class="node-title">Senior Creative & Architectural CAD Designer</h3>
+                        <p class="node-desc">
+                            Spearheading complex architectural blueprints, 2D drafting, 3D visualization, 
+                            and spatial renders. Coordinating directly with engineering specs and 
+                            transforming conceptual layouts into photorealistic renderings.
+                        </p>
+                        <div class="node-tags">
+                            <span>AutoCAD</span>
+                            <span>Blender</span>
+                            <span>Architectural 3D</span>
+                            <span>Spatial Planning</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone 2 -->
+                <div class="timeline-node tilt-card">
+                    <div class="node-marker"></div>
+                    <div class="node-content">
+                        <div class="node-header">
+                            <span class="node-year">2023 — PRESENT</span>
+                            <span class="node-badge">AI PURSUIT</span>
+                        </div>
+                        <h3 class="node-title">BCA Honors with AI & Data Science Scholar</h3>
+                        <p class="node-desc">
+                            Immersed in advanced algorithm development, data science paradigms, Python scripting, 
+                            statistical models, and full-stack software development at Don Bosco College.
+                        </p>
+                        <div class="node-tags">
+                            <span>Artificial Intelligence</span>
+                            <span>Data Science</span>
+                            <span>Python</span>
+                            <span>Modern Web</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milestone 3 -->
+                <div class="timeline-node tilt-card">
+                    <div class="node-marker"></div>
+                    <div class="node-content">
+                        <div class="node-header">
+                            <span class="node-year">2020 — PRESENT</span>
+                            <span class="node-badge">MEDIA & HARDWARE</span>
+                        </div>
+                        <h3 class="node-title">Cinematic Videographer & Hardware Specialist</h3>
+                        <p class="node-desc">
+                            Directing video productions, color grading, high-end motion editing, 
+                            and providing enterprise hardware repairs, computer diagnostics, and custom workstation assemblies.
+                        </p>
+                        <div class="node-tags">
+                            <span>Video Editing</span>
+                            <span>Videography</span>
+                            <span>Hardware Engineering</span>
+                            <span>Public Speaking</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CYBER TERMINAL ABOUT MANIFESTO
+             ========================================== -->
+        <section class="section reveal-on-scroll">
+            <div class="terminal-window tilt-card">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                    </div>
+                    <span class="terminal-title">kiran@quantum-workstation:~# cat manifesto.json</span>
+                    <span class="terminal-badge">JSON UTF-8</span>
+                </div>
+                <div class="terminal-body">
+<pre><code>{
+  <span class="json-k">"architect"</span>: <span class="json-s">"Kiran Kumar K"</span>,
+  <span class="json-k">"location"</span>: <span class="json-s">"Kozhikode, Kerala, India"</span>,
+  <span class="json-k">"discipline_matrix"</span>: [
+    <span class="json-s">"Artificial Intelligence &amp; Data Science"</span>,
+    <span class="json-s">"AutoDesk Certified CAD Drafting"</span>,
+    <span class="json-s">"Blender 3D Modeling &amp; Realtime Rendering"</span>,
+    <span class="json-s">"Unreal Engine 5 Interactive Tech"</span>,
+    <span class="json-s">"Enterprise Workstation Hardware"</span>
+  ],
+  <span class="json-k">"mission"</span>: <span class="json-s">"To bridge computational intelligence with hyper-detailed spatial aesthetics, building powerful tools and inspiring visual environments."</span>,
+  <span class="json-k">"availability"</span>: <span class="json-s">"Worldwide Remote &amp; On-Site Collaborations"</span>,
+  <span class="json-k">"status"</span>: <span class="json-v">true</span>
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             CONTACT TRANSMISSION DECK
+             ========================================== -->
+        <section class="section reveal-on-scroll" id="contact">
+            <div class="section-header">
+                <span class="section-tag">// 07 • ESTABLISH TRANSMISSION</span>
+                <h2 class="section-heading">GET IN <span class="neon-text">TOUCH</span></h2>
+                <p class="section-sub">Direct channels for commissions, architectural consultations, AI projects, and creative inquiries.</p>
+            </div>
+
+            <div class="contact-grid">
+                
+                <!-- Direct Channel Cards -->
+                <div class="contact-channels">
+                    
+                    <!-- Phone 1 -->
+                    <div class="contact-card tilt-card">
+                        <div class="contact-icon"><i class="fa-solid fa-phone-volume"></i></div>
+                        <div class="contact-info">
+                            <span class="contact-label">PRIMARY TELEPHONE</span>
+                            <span class="contact-val">+91 8136997261</span>
+                        </div>
+                        <div class="contact-actions">
+                            <button class="action-btn" data-copy="8136997261" title="Copy Number">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                            <a href="tel:8136997261" class="action-btn" title="Call Direct">
+                                <i class="fa-solid fa-phone"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Phone 2 -->
+                    <div class="contact-card tilt-card">
+                        <div class="contact-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                        <div class="contact-info">
+                            <span class="contact-label">SECONDARY TELEPHONE</span>
+                            <span class="contact-val">+91 9400066110</span>
+                        </div>
+                        <div class="contact-actions">
+                            <button class="action-btn" data-copy="9400066110" title="Copy Number">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                            <a href="tel:9400066110" class="action-btn" title="Call Direct">
+                                <i class="fa-solid fa-phone"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="contact-card tilt-card">
+                        <div class="contact-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+                        <div class="contact-info">
+                            <span class="contact-label">TRANSMISSION INBOX</span>
+                            <span class="contact-val">kirankollolath2020@gmail.com</span>
+                        </div>
+                        <div class="contact-actions">
+                            <button class="action-btn" data-copy="kirankollolath2020@gmail.com" title="Copy Email">
+                                <i class="fa-regular fa-copy"></i>
+                            </button>
+                            <a href="mailto:kirankollolath2020@gmail.com" class="action-btn" title="Send Email">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Physical Station -->
+                    <div class="contact-card tilt-card">
+                        <div class="contact-icon"><i class="fa-solid fa-location-crosshairs"></i></div>
+                        <div class="contact-info">
+                            <span class="contact-label">HEADQUARTERS</span>
+                            <span class="contact-val">Theertham House, Karattuthazham Konott P.O,<br>Parambil Bazar, Kozhikode, Kerala</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Interactive Message Dispatcher -->
+                <div class="contact-form-wrapper tilt-card">
+                    <div class="form-header">
+                        <span class="form-title"><i class="fa-solid fa-tower-broadcast"></i> DIRECT TRANSMISSION</span>
+                        <span class="form-cipher">ENCRYPTION: AES-256</span>
+                    </div>
+                    <form class="cyber-form" action="mailto:kirankollolath2020@gmail.com" method="GET">
+                        <div class="form-group">
+                            <label for="form-name">CALLSIGN / NAME</label>
+                            <input type="text" id="form-name" name="subject" placeholder="Enter your identity or subject" required class="cyber-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="form-msg">PAYLOAD / MESSAGE</label>
+                            <textarea id="form-msg" name="body" rows="5" placeholder="Detail your project or collaboration requirements..." required class="cyber-input"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-cyber-primary w-full">
+                            <span>Dispatch Transmission</span>
+                            <i class="fa-solid fa-rocket"></i>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- ==========================================
+         CYBER FOOTER
+         ========================================== -->
+    <footer class="cyber-footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <span class="footer-logo">KIRAN KUMAR K</span>
+                    <p class="footer-tagline">Designing intelligent computing systems, architectural realities, and interactive 3D worlds.</p>
+                </div>
+                <div class="footer-socials">
+                    <a href="https://www.linkedin.com/in/kiran-kumar-k-3667b22a7?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://github.com/kirankumar8136" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="https://www.instagram.com/kiran.official._?igsh=MXFxcGVzbW1kZnY1dg==" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/share/1CiBdN9zvA/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span class="copyright">© 2026 Kiran Kumar K • Engineered with WebGL & 3D Shaders</span>
+                <a href="#home" class="warp-top-btn" title="Warp to Top">
+                    <span>BACK TO TOP</span>
+                    <i class="fa-solid fa-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         FULLSCREEN CERTIFICATE / MEDIA MODAL
+         ========================================== -->
+    <div id="media-modal" class="cyber-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-dialog">
+            <div class="modal-head">
+                <span id="modal-title" class="modal-title">Certificate Inspection</span>
+                <button id="modal-close" class="modal-close-btn" aria-label="Close modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="modal-content-container" class="modal-body">
+                <!-- Content injected dynamically via main.js -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         CYBER HUD TOAST NOTIFIER
+         ========================================== -->
+    <div id="cyber-toast" class="cyber-toast">
+        <div class="toast-indicator"></div>
+        <span class="toast-msg">System Notification</span>
+    </div>
+
+    <!-- Main Logic Scripts -->
+    <script src="background.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
