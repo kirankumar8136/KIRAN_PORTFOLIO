@@ -1,22 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { playBlipSound, playLaserSound } from '../utils/audio';
+import { playBlipSound, playLaserSound, playThunderSound } from '../utils/audio';
 import { 
   createStudioEnvMap,
-  createDetailedNissanGTR, 
-  createDetailedEiffelTower, 
-  createDetailedCinquefoilKnot,
-  createDetailedTorusKnot,
-  createDetailedQuantumCore,
+  loadMjolnirGLTF,
+  createDetailedMjolnir,
+  animateLightningAura,
   updateModelStyle
 } from '../utils/models3D';
 
 export function Lab3D({ onToast }) {
   const canvasRef = useRef(null);
-  const [currentShape, setCurrentShape] = useState('eiffel');
+  const [currentMode, setCurrentMode] = useState('classic');
   const [currentColor, setCurrentColor] = useState('#00d4ff');
-  const [isWireframe, setIsWireframe] = useState(false); // Default to realistic Solid Shaded mode!
+  const [isWireframe, setIsWireframe] = useState(false);
   const [autoRotate, setAutoRotate] = useState(true);
+  const [isGLTFLoaded, setIsGLTFLoaded] = useState(false);
 
   const sceneRef = useRef(null);
   const rendererRef = useRef(null);
@@ -25,23 +24,25 @@ export function Lab3D({ onToast }) {
   const envMapRef = useRef(null);
   const fillLightRef = useRef(null);
   const groundGridRef = useRef(null);
+  const flashIntensityRef = useRef(3.4);
+  const isGLTFLoadedRef = useRef(false);
 
-  // Store user interaction states in refs to prevent closure staling
+  // Store user interaction states in refs to prevent closure staling in render loops
   const stateRef = useRef({
-    shape: 'eiffel',
+    mode: 'classic',
     color: '#00d4ff',
     wireframe: false,
     autoRotate: true,
-    targetZoom: 5.6,
-    currentZoom: 5.6
+    targetZoom: 4.8,
+    currentZoom: 4.8
   });
 
   useEffect(() => {
-    stateRef.current.shape = currentShape;
+    stateRef.current.mode = currentMode;
     stateRef.current.color = currentColor;
     stateRef.current.wireframe = isWireframe;
     stateRef.current.autoRotate = autoRotate;
-  }, [currentShape, currentColor, isWireframe, autoRotate]);
+  }, [currentMode, currentColor, isWireframe, autoRotate]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -55,7 +56,7 @@ export function Lab3D({ onToast }) {
     const h = canvas.clientHeight || 420;
 
     const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 1000);
-    camera.position.set(0, 0.4, 5.6);
+    camera.position.set(0, 0.2, 4.8);
     cameraRef.current = camera;
 
     // 2. High-Fidelity WebGL Renderer with ACES Filmic Tone Mapping
@@ -68,7 +69,7 @@ export function Lab3D({ onToast }) {
     renderer.setSize(w, h);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.35;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     rendererRef.current = renderer;
 
@@ -79,34 +80,34 @@ export function Lab3D({ onToast }) {
 
     // 4. Cinematic 3-Point Lighting Studio
     // Key Light (Overhead daylight softbox)
-    const keyLight = new THREE.DirectionalLight(0xffffff, 2.4);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.6);
     keyLight.position.set(5, 8, 5);
     scene.add(keyLight);
 
     // Dynamic Emissive Fill Light
-    const fillLight = new THREE.PointLight(0x00f0ff, 3.2, 25);
+    const fillLight = new THREE.PointLight(0x00d4ff, 3.4, 25);
     fillLight.position.set(-5, 3, 4);
     scene.add(fillLight);
     fillLightRef.current = fillLight;
 
     // Rim / Silhouette Backlight
-    const rimLight = new THREE.DirectionalLight(0x60a5fa, 2.0);
+    const rimLight = new THREE.DirectionalLight(0x38bdf8, 2.2);
     rimLight.position.set(0, -2, -6);
     scene.add(rimLight);
 
     // Warm Horizon Kick Light
-    const kickLight = new THREE.PointLight(0xf472b6, 1.8, 20);
+    const kickLight = new THREE.PointLight(0xfbbf24, 1.8, 20);
     kickLight.position.set(5, -3, -3);
     scene.add(kickLight);
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.45);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.55);
     scene.add(ambientLight);
 
     // 5. Holographic Ground Showroom Pedestal
     const groundGroup = new THREE.Group();
-    groundGroup.position.set(0, -2.4, 0);
+    groundGroup.position.set(0, -2.2, 0);
 
-    const gridHelper = new THREE.GridHelper(8, 20, 0x00f0ff, 0x1e293b);
+    const gridHelper = new THREE.GridHelper(8, 20, 0x00d4ff, 0x1e293b);
     gridHelper.position.y = 0.01;
     gridHelper.material.transparent = true;
     gridHelper.material.opacity = 0.35;
@@ -115,9 +116,9 @@ export function Lab3D({ onToast }) {
     const ringGeom = new THREE.RingGeometry(0.5, 3.5, 48);
     ringGeom.rotateX(-Math.PI / 2);
     const ringMat = new THREE.MeshBasicMaterial({
-      color: 0x00f0ff,
+      color: 0x00d4ff,
       transparent: true,
-      opacity: 0.12,
+      opacity: 0.14,
       side: THREE.DoubleSide
     });
     const ringMesh = new THREE.Mesh(ringGeom, ringMat);
@@ -126,23 +127,64 @@ export function Lab3D({ onToast }) {
     scene.add(groundGroup);
     groundGridRef.current = groundGroup;
 
-    // 6. Instantiate Initial Detailed Model (Eiffel Tower)
-    const initialModel = createDetailedEiffelTower('#00d4ff', false, envMap);
-    scene.add(initialModel);
-    currentModelGroupRef.current = initialModel;
+    // 6. Fast Instant Display: Procedural Mjölnir Model
+    const fallbackModel = createDetailedMjolnir('#00d4ff', false, envMap, 'classic');
+    fallbackModel.rotation.set(0.18, 0.42, -0.22);
+    scene.add(fallbackModel);
+    currentModelGroupRef.current = fallbackModel;
 
-    // 7. Interactive Mouse / Touch Drag Orbit Controls with Damping
+    // 7. Asynchronously Load Authentic 3D GLTF Model: mjolnir_thors_hammer.glb
+    const baseUrl = import.meta.env.BASE_URL || './';
+    const cleanBase = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
+    const modelUrl = `${cleanBase}mjolnir_thors_hammer.glb`;
+
+    loadMjolnirGLTF(
+      modelUrl,
+      envMap,
+      stateRef.current.color,
+      stateRef.current.wireframe,
+      stateRef.current.mode
+    )
+      .then((gltfModel) => {
+        if (!sceneRef.current) return;
+        // Replace initial procedural fallback with actual GLTF model
+        if (currentModelGroupRef.current) {
+          scene.remove(currentModelGroupRef.current);
+        }
+        gltfModel.rotation.set(0.18, 0.42, -0.22);
+        scene.add(gltfModel);
+        currentModelGroupRef.current = gltfModel;
+        isGLTFLoadedRef.current = true;
+        setIsGLTFLoaded(true);
+        if (onToast) onToast("Authentic Thor's Hammer Mjölnir 3D Model Loaded");
+      })
+      .catch((err) => {
+        console.warn('GLTF load failed, using high-fidelity procedural Mjölnir model', err);
+      });
+
+    // 8. Interactive Mouse / Touch Drag Orbit Controls with Damping
     let isDragging = false;
+    let mouseDownPos = { x: 0, y: 0 };
     let prevMousePos = { x: 0, y: 0 };
     let rotSpeedX = 0;
     let rotSpeedY = 0;
 
     const onMouseDown = (e) => {
       isDragging = true;
+      mouseDownPos = { x: e.clientX, y: e.clientY };
       prevMousePos = { x: e.clientX, y: e.clientY };
+      rotSpeedX = 0;
+      rotSpeedY = 0;
     };
 
-    const onMouseUp = () => {
+    const onMouseUp = (e) => {
+      if (isDragging) {
+        // If distance between down and up is under 6px, treat as interactive click/strike
+        const dist = Math.hypot(e.clientX - mouseDownPos.x, e.clientY - mouseDownPos.y);
+        if (dist < 6) {
+          triggerThunderStrike();
+        }
+      }
       isDragging = false;
     };
 
@@ -151,108 +193,143 @@ export function Lab3D({ onToast }) {
       const deltaX = e.clientX - prevMousePos.x;
       const deltaY = e.clientY - prevMousePos.y;
 
-      rotSpeedY = deltaX * 0.008;
-      rotSpeedX = deltaY * 0.008;
+      rotSpeedY = deltaX * 0.007;
+      rotSpeedX = deltaY * 0.007;
 
       currentModelGroupRef.current.rotation.y += rotSpeedY;
-      currentModelGroupRef.current.rotation.x = Math.max(
-        -0.6,
-        Math.min(0.6, currentModelGroupRef.current.rotation.x + rotSpeedX)
-      );
+      currentModelGroupRef.current.rotation.x += rotSpeedX;
 
       prevMousePos = { x: e.clientX, y: e.clientY };
     };
 
-    // Mouse Wheel Zoom
+    // Zoom on wheel
     const onWheel = (e) => {
       e.preventDefault();
-      const zoomDelta = e.deltaY * 0.004;
-      stateRef.current.targetZoom = Math.max(2.8, Math.min(8.5, stateRef.current.targetZoom + zoomDelta));
+      stateRef.current.targetZoom = Math.max(2.8, Math.min(7.5, stateRef.current.targetZoom + e.deltaY * 0.003));
     };
 
-    // Mobile Touch Support
+    // Touch event handlers for mobile devices
+    let touchStartDist = 0;
+    let touchStartPos = { x: 0, y: 0 };
+
     const onTouchStart = (e) => {
-      if (e.touches.length > 0) {
+      if (e.touches.length === 1) {
         isDragging = true;
+        touchStartPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
         prevMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      } else if (e.touches.length === 2) {
+        touchStartDist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
       }
     };
 
-    const onTouchEnd = () => {
-      isDragging = false;
+    const onTouchMove = (e) => {
+      if (e.touches.length === 1 && isDragging && currentModelGroupRef.current) {
+        const deltaX = e.touches[0].clientX - prevMousePos.x;
+        const deltaY = e.touches[0].clientY - prevMousePos.y;
+
+        rotSpeedY = deltaX * 0.007;
+        rotSpeedX = deltaY * 0.007;
+
+        currentModelGroupRef.current.rotation.y += rotSpeedY;
+        currentModelGroupRef.current.rotation.x += rotSpeedX;
+
+        prevMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      } else if (e.touches.length === 2) {
+        const currentDist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        const diff = touchStartDist - currentDist;
+        stateRef.current.targetZoom = Math.max(2.8, Math.min(7.5, stateRef.current.targetZoom + diff * 0.005));
+        touchStartDist = currentDist;
+      }
     };
 
-    const onTouchMove = (e) => {
-      if (!isDragging || e.touches.length === 0 || !currentModelGroupRef.current) return;
-      const deltaX = e.touches[0].clientX - prevMousePos.x;
-      const deltaY = e.touches[0].clientY - prevMousePos.y;
-
-      rotSpeedY = deltaX * 0.012;
-      rotSpeedX = deltaY * 0.012;
-
-      currentModelGroupRef.current.rotation.y += rotSpeedY;
-      currentModelGroupRef.current.rotation.x = Math.max(
-        -0.6,
-        Math.min(0.6, currentModelGroupRef.current.rotation.x + rotSpeedX)
-      );
-
-      prevMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    const onTouchEnd = (e) => {
+      if (isDragging && e.changedTouches && e.changedTouches.length === 1) {
+        const t = e.changedTouches[0];
+        const dist = Math.hypot(t.clientX - touchStartPos.x, t.clientY - touchStartPos.y);
+        if (dist < 8) {
+          triggerThunderStrike();
+        }
+      }
+      isDragging = false;
     };
 
     canvas.addEventListener('mousedown', onMouseDown);
     window.addEventListener('mouseup', onMouseUp);
     canvas.addEventListener('mousemove', onMouseMove);
     canvas.addEventListener('wheel', onWheel, { passive: false });
-
     canvas.addEventListener('touchstart', onTouchStart, { passive: true });
     window.addEventListener('touchend', onTouchEnd);
     canvas.addEventListener('touchmove', onTouchMove, { passive: true });
 
-    // 8. Responsive Canvas Resize
+    // Handle container resize
     const handleResize = () => {
-      if (!canvas.parentElement) return;
-      const width = canvas.parentElement.clientWidth;
-      const height = canvas.parentElement.clientHeight || 420;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
+      if (!canvas || !rendererRef.current || !cameraRef.current) return;
+      const width = canvas.clientWidth || 600;
+      const height = canvas.clientHeight || 420;
+      cameraRef.current.aspect = width / height;
+      cameraRef.current.updateProjectionMatrix();
+      rendererRef.current.setSize(width, height);
+      rendererRef.current.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     };
     window.addEventListener('resize', handleResize);
 
-    // 9. 60FPS High-Definition Render Loop
+    // 9. 60FPS Render & Physics Loop
     let animId;
+    let clock = new THREE.Clock();
+
     const animate = () => {
       animId = requestAnimationFrame(animate);
+      const elapsedTime = clock.getElapsedTime();
 
-      // Smooth camera zoom interpolation
+      // Smooth zoom interpolation
       stateRef.current.currentZoom += (stateRef.current.targetZoom - stateRef.current.currentZoom) * 0.1;
       camera.position.z = stateRef.current.currentZoom;
 
-      const model = currentModelGroupRef.current;
-      if (model) {
+      if (currentModelGroupRef.current) {
+        // Animate dynamic lightning aura
+        const aura = currentModelGroupRef.current.userData?.lightningAura;
+        if (aura) {
+          const intensity = stateRef.current.mode === 'thunder' ? 1.0 : (stateRef.current.wireframe ? 0.7 : 0.3);
+          animateLightningAura(aura, elapsedTime, intensity);
+        }
+
+        // Auto-rotation when not user-dragging
+        if (stateRef.current.autoRotate && !isDragging) {
+          currentModelGroupRef.current.rotation.y += 0.008;
+        }
+
+        // Inertia damping
         if (!isDragging) {
-          // Inertial rotational damping
           rotSpeedX *= 0.92;
           rotSpeedY *= 0.92;
-          model.rotation.y += rotSpeedY;
-          model.rotation.x += rotSpeedX;
-
-          // Auto-rotation when enabled
-          if (stateRef.current.autoRotate) {
-            model.rotation.y += 0.007;
-          }
+          currentModelGroupRef.current.rotation.x += rotSpeedX;
+          currentModelGroupRef.current.rotation.y += rotSpeedY;
         }
       }
 
-      // Slowly rotate ground showroom grid
+      // Smooth fillLight flash decay after lightning strike
+      if (fillLightRef.current && flashIntensityRef.current > 3.4) {
+        flashIntensityRef.current = THREE.MathUtils.lerp(flashIntensityRef.current, 3.4, 0.08);
+        fillLightRef.current.intensity = flashIntensityRef.current;
+      }
+
+      // Rotate ground grid hologram subtly
       if (groundGridRef.current) {
-        groundGridRef.current.rotation.y += 0.0015;
+        groundGridRef.current.rotation.y -= 0.002;
       }
 
       renderer.render(scene, camera);
     };
+
     animate();
 
+    // Cleanup on unmount
     return () => {
       cancelAnimationFrame(animId);
       canvas.removeEventListener('mousedown', onMouseDown);
@@ -267,60 +344,50 @@ export function Lab3D({ onToast }) {
     };
   }, []);
 
-  // Switch 3D Model Group
-  const changeShape = (shapeKey) => {
-    playBlipSound(950, 0.06);
-    setCurrentShape(shapeKey);
+  // Thunder Strike interactive blast triggered on tap / click
+  const triggerThunderStrike = () => {
+    playThunderSound();
+    flashIntensityRef.current = 11.5;
+    if (fillLightRef.current) {
+      fillLightRef.current.intensity = 11.5;
+    }
+    if (onToast) onToast('⚡ Mjölnir Awakens: High-Voltage Lightning Strike!');
+  };
+
+  // Switch Mjölnir Enchantment / Inspection Mode
+  const changeHammerMode = (modeKey) => {
+    if (modeKey === 'thunder') {
+      triggerThunderStrike();
+    } else {
+      playBlipSound(950, 0.06);
+    }
+    setCurrentMode(modeKey);
 
     const scene = sceneRef.current;
     const envMap = envMapRef.current;
     if (!scene) return;
 
-    // Remove existing model
     if (currentModelGroupRef.current) {
-      scene.remove(currentModelGroupRef.current);
-    }
-
-    let newModel;
-    const wireframe = isWireframe;
-    const color = currentColor;
-
-    if (shapeKey === 'gtr') {
-      newModel = createDetailedNissanGTR(color, wireframe, envMap);
-      // Dynamic initial 3/4 front quarter viewing angle
-      newModel.rotation.set(0.12, -0.65, 0);
-      stateRef.current.targetZoom = 5.2;
-    } else if (shapeKey === 'eiffel') {
-      newModel = createDetailedEiffelTower(color, wireframe, envMap);
-      newModel.rotation.set(0.05, 0.45, 0);
-      stateRef.current.targetZoom = 5.6;
-    } else if (shapeKey === 'cinquefoil' || shapeKey === 'head') {
-      newModel = createDetailedCinquefoilKnot(color, wireframe, envMap);
-      newModel.rotation.set(0.1, 0, 0);
-      stateRef.current.targetZoom = 5.2;
-    } else if (shapeKey === 'torus') {
-      newModel = createDetailedTorusKnot(color, wireframe, envMap);
-      newModel.rotation.set(0, 0, 0);
-      stateRef.current.targetZoom = 5.0;
-    } else if (shapeKey === 'core') {
-      newModel = createDetailedQuantumCore(color, wireframe, envMap);
-      newModel.rotation.set(0, 0, 0);
-      stateRef.current.targetZoom = 5.4;
-    }
-
-    if (newModel) {
-      scene.add(newModel);
-      currentModelGroupRef.current = newModel;
+      if (isGLTFLoadedRef.current) {
+        // Update GLTF model styling seamlessly
+        updateModelStyle(currentModelGroupRef.current, currentColor, isWireframe, modeKey);
+      } else {
+        // Fallback procedural model update
+        scene.remove(currentModelGroupRef.current);
+        const newModel = createDetailedMjolnir(currentColor, isWireframe, envMap, modeKey);
+        newModel.rotation.set(0.18, 0.42, -0.22);
+        scene.add(newModel);
+        currentModelGroupRef.current = newModel;
+      }
     }
 
     const labels = {
-      eiffel: 'EIFFEL TOWER (ARCHITECTURAL CAD)',
-      gtr: 'NISSAN SKYLINE GT-R R34 (JDM LEGEND)',
-      cinquefoil: 'CINQUEFOIL TORUS KNOT (3, 5)',
-      torus: 'TREFOIL TORUS KNOT (2, 3)',
-      core: 'QUANTUM CORE REACTOR'
+      classic: 'MJÖLNIR // URU FORGED STEEL',
+      thunder: 'MJÖLNIR // THUNDER AWAKENED',
+      bifrost: 'MJÖLNIR // BIFROST RADIANCE',
+      ragnarok: 'MJÖLNIR // BATTLE-WORN RELIC'
     };
-    if (onToast) onToast(`Model Loaded: ${labels[shapeKey] || shapeKey.toUpperCase()}`);
+    if (onToast) onToast(`Relic State: ${labels[modeKey] || modeKey.toUpperCase()}`);
   };
 
   // Change Emissive Spectrum & Lighting Accent
@@ -329,14 +396,14 @@ export function Lab3D({ onToast }) {
     setCurrentColor(hex);
 
     if (currentModelGroupRef.current) {
-      updateModelStyle(currentModelGroupRef.current, hex, isWireframe);
+      updateModelStyle(currentModelGroupRef.current, hex, isWireframe, currentMode);
     }
 
     if (fillLightRef.current) {
       fillLightRef.current.color.set(hex);
     }
 
-    if (onToast) onToast(`Spectrum: ${label}`);
+    if (onToast) onToast(`Asgardian Spectrum: ${label}`);
   };
 
   // Toggle Shading Mode (Solid Photorealistic Shaded vs Lattice Wireframe)
@@ -346,11 +413,11 @@ export function Lab3D({ onToast }) {
     setIsWireframe(nextVal);
 
     if (currentModelGroupRef.current) {
-      updateModelStyle(currentModelGroupRef.current, currentColor, nextVal);
+      updateModelStyle(currentModelGroupRef.current, currentColor, nextVal, currentMode);
     }
 
     if (onToast) {
-      onToast(`Render Mode: ${nextVal ? 'LATTICE WIREFRAME' : 'PHOTOREALISTIC SOLID'}`);
+      onToast(`Render Mode: ${nextVal ? 'LATTICE CAD BLUEPRINT' : 'PHOTOREALISTIC URU PBR'}`);
     }
   };
 
@@ -359,22 +426,22 @@ export function Lab3D({ onToast }) {
     playBlipSound(800, 0.04);
     setAutoRotate(!autoRotate);
     if (onToast) {
-      onToast(`Auto-Rotate: ${!autoRotate ? 'ENABLED' : 'PAUSED'}`);
+      onToast(`Orbit Spin: ${!autoRotate ? 'ENABLED' : 'PAUSED'}`);
     }
   };
 
   // Zoom Helpers
   const adjustZoom = (delta) => {
     playBlipSound(1000, 0.03);
-    stateRef.current.targetZoom = Math.max(2.8, Math.min(8.5, stateRef.current.targetZoom + delta));
+    stateRef.current.targetZoom = Math.max(2.8, Math.min(7.5, stateRef.current.targetZoom + delta));
   };
 
-  const shapes = [
-    { key: 'eiffel', label: 'Eiffel Tower', icon: 'fa-solid fa-monument' },
-    { key: 'gtr', label: 'Nissan GT-R R34', icon: 'fa-solid fa-car-side' },
-    { key: 'cinquefoil', label: 'Cinquefoil Knot', icon: 'fa-solid fa-certificate' },
-    { key: 'torus', label: 'Trefoil Knot', icon: 'fa-solid fa-infinity' },
-    { key: 'core', label: 'Quantum Core', icon: 'fa-solid fa-atom' }
+  // Hammer Enchantment Modes
+  const hammerModes = [
+    { key: 'classic', label: 'Uru Forged Steel', icon: 'fa-solid fa-hammer' },
+    { key: 'thunder', label: 'Thunder Awakened', icon: 'fa-solid fa-bolt' },
+    { key: 'bifrost', label: 'Bifrost Radiance', icon: 'fa-solid fa-wand-magic-sparkles' },
+    { key: 'ragnarok', label: 'Battle-Worn Relic', icon: 'fa-solid fa-shield-halved' }
   ];
 
   const colors = [
@@ -384,58 +451,69 @@ export function Lab3D({ onToast }) {
     { hex: '#ff003c', label: 'Crimson Flare' }
   ];
 
-  // Dynamic engineering specs based on the active model
-  const modelSpecs = {
-    eiffel: {
-      title: 'EIFFEL TOWER (PARISIAN CAD)',
-      details: '330m Wrought Iron • 4 Parabolic Arches • Dual Observation Decks & Summit Beacon',
-      material: isWireframe ? 'Lattice Blueprints' : 'Puddle Iron Metallic PBR'
+  // Dynamic engineering specs
+  const modeSpecs = {
+    classic: {
+      title: 'MJÖLNIR // URU HAMMER OF THOR',
+      details: 'Forged in Nidavellir from the Heart of a Dying Star • Eitri & Dwarven Smiths',
+      material: isWireframe ? 'Lattice CAD Blueprint' : 'Brushed Uru Metal, Norse Knotwork & Silver Helix'
     },
-    gtr: {
-      title: 'NISSAN SKYLINE GT-R R34',
-      details: 'RB26DETT Twin-Turbo • NISMO 6-Spoke Wheels • Carbon Diffuser & R34 Taillights',
-      material: isWireframe ? 'Aero Wireframe' : 'High-Gloss Clearcoat & Carbon PBR'
+    thunder: {
+      title: 'MJÖLNIR // GOD OF THUNDER ENCHANTED',
+      details: 'Channeled with Atmospheric High-Voltage Lightning & Triquetra Rune Radiance',
+      material: isWireframe ? 'Electric Resonance Vectors' : 'Charged Uru Metal with Crackling Lightning Aura'
     },
-    cinquefoil: {
-      title: 'CINQUEFOIL TORUS KNOT (3, 5)',
-      details: '5-Lobed Non-Trivial Star Knot • Titanium PBR • Dual-Strand Laser Core & Orbit Rings',
-      material: isWireframe ? 'Higher-Order Lattice' : 'Iridescent Titanium & Laser PBR'
+    bifrost: {
+      title: 'MJÖLNIR // BIFROST DIVINE BLESSING',
+      details: 'Infused with Asgardian Golden Energy & Cosmic Teleportation Magic',
+      material: isWireframe ? 'Gold Wireframe Geometry' : 'Divine Gold Inlay, Polished Silver & Rich Leather'
     },
-    head: {
-      title: 'CINQUEFOIL TORUS KNOT (3, 5)',
-      details: '5-Lobed Non-Trivial Star Knot • Titanium PBR • Dual-Strand Laser Core & Orbit Rings',
-      material: isWireframe ? 'Higher-Order Lattice' : 'Iridescent Titanium & Laser PBR'
-    },
-    torus: {
-      title: 'TREFOIL TORUS KNOT (2, 3)',
-      details: 'Classic 3-Lobed Parametric Braid • Mirror Chrome PBR • Waveguide Core',
-      material: isWireframe ? 'Parametric Lattice' : 'Chrome Plated Specular PBR'
-    },
-    core: {
-      title: 'QUANTUM CORE REACTOR',
-      details: 'Triple Concentric Gyro Gimbal • Central Energy Node • Resonance Waveguide',
-      material: isWireframe ? 'Resonance Vectors' : 'Refractive Crystal & Brushed Alloy'
+    ragnarok: {
+      title: 'MJÖLNIR // BATTLE-WORN ANCIENT RELIC',
+      details: "Weathered in Cosmic Wars • Inscribed with Odin's Worthiness Enchantment",
+      material: isWireframe ? 'Hardened Iron Vectors' : 'Patina Weathered Steel & Woven Leather Grip'
     }
   };
 
-  const activeSpec = modelSpecs[currentShape] || modelSpecs.eiffel;
+  const activeSpec = modeSpecs[currentMode] || modeSpecs.classic;
 
   return (
     <section className="section" id="lab">
       <div className="section-header">
-        <span className="section-tag">// 02 • REAL-TIME GRAPHICS ENGINE</span>
+        <span className="section-tag">// 02 • REAL-TIME 3D FORGE</span>
         <h2 className="section-heading">
-          INTERACTIVE <span className="neon-text">3D LAB</span>
+          THOR'S HAMMER <span className="neon-text">MJÖLNIR</span>
         </h2>
         <p className="section-sub">
-          Explore realistic 3D architectural monuments, the iconic Nissan GT-R R34 sports coupe, and intricate mathematical torus knot geometries with studio HDR lighting, PBR reflections, and wireframe lattice shaders.
+          Forged from enchanted Uru metal in the heart of a dying star in Nidavellir. Examine the legendary hammer in real-time 3D — inspect the sacred Triquetra engraving, silver helical grip, Norse Celtic knotwork, and Asgardian lightning aura. Tap or click Mjölnir to summon thunder strikes.
         </p>
       </div>
 
       <div className="lab-container">
         {/* 3D Viewport */}
         <div className="lab-viewport">
-          <canvas ref={canvasRef} id="lab-3d-canvas" style={{ width: '100%', height: '100%' }} />
+          <canvas ref={canvasRef} id="lab-3d-canvas" style={{ width: '100%', height: '100%', cursor: 'grab' }} />
+
+          {/* Top-Left 3D Asset Source Badge */}
+          <div style={{
+            position: 'absolute',
+            top: '15px',
+            left: '15px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            background: 'rgba(6, 12, 28, 0.85)',
+            border: '1px solid var(--glass-border)',
+            padding: '6px 12px',
+            borderRadius: '6px',
+            fontSize: '1.05rem',
+            fontFamily: 'var(--font-mono)',
+            color: 'var(--primary-neon)',
+            zIndex: 10
+          }}>
+            <i className="fa-solid fa-circle-check" style={{ color: '#00d4ff' }}></i>
+            <span>{isGLTFLoaded ? 'AUTHENTIC 3D GLB LOADED' : 'INITIALIZING ASGARDIAN ASSET...'}</span>
+          </div>
 
           {/* Top-Right Interactive Camera HUD Controls */}
           <div style={{
@@ -447,10 +525,10 @@ export function Lab3D({ onToast }) {
             zIndex: 10
           }}>
             <button
-              onClick={() => adjustZoom(-0.8)}
+              onClick={() => adjustZoom(-0.6)}
               title="Zoom In"
               style={{
-                background: 'rgba(10, 14, 24, 0.85)',
+                background: 'rgba(6, 12, 28, 0.85)',
                 border: '1px solid var(--glass-border)',
                 color: 'var(--primary-neon)',
                 padding: '6px 12px',
@@ -463,10 +541,10 @@ export function Lab3D({ onToast }) {
               <i className="fa-solid fa-plus"></i>
             </button>
             <button
-              onClick={() => adjustZoom(0.8)}
+              onClick={() => adjustZoom(0.6)}
               title="Zoom Out"
               style={{
-                background: 'rgba(10, 14, 24, 0.85)',
+                background: 'rgba(6, 12, 28, 0.85)',
                 border: '1px solid var(--glass-border)',
                 color: 'var(--primary-neon)',
                 padding: '6px 12px',
@@ -482,7 +560,7 @@ export function Lab3D({ onToast }) {
               onClick={toggleAutoRotate}
               title="Toggle Auto Rotation"
               style={{
-                background: autoRotate ? 'rgba(255, 0, 60, 0.2)' : 'rgba(10, 14, 24, 0.85)',
+                background: autoRotate ? 'rgba(0, 212, 255, 0.2)' : 'rgba(6, 12, 28, 0.85)',
                 border: `1px solid ${autoRotate ? 'var(--primary-neon)' : 'var(--glass-border)'}`,
                 color: autoRotate ? '#fff' : 'var(--text-secondary)',
                 padding: '6px 12px',
@@ -493,14 +571,15 @@ export function Lab3D({ onToast }) {
               }}
             >
               <i className="fa-solid fa-arrows-rotate" style={{ marginRight: '6px' }}></i>
-              {autoRotate ? 'SPINNING' : 'PAUSED'}
+              {autoRotate ? 'ORBITING' : 'PAUSED'}
             </button>
           </div>
 
           {/* Bottom Viewport Hint */}
           <div className="viewport-hints">
             <span>
-              <i className="fa-solid fa-hand-pointer"></i> Drag to Orbit 360° • Scroll / Pinch to Zoom • Studio HDR
+              <i className="fa-solid fa-bolt" style={{ color: '#00d4ff', marginRight: '6px' }}></i>
+              Click Mjölnir to Summon Lightning • Drag to Orbit 360° • Scroll / Pinch to Zoom
             </span>
           </div>
         </div>
@@ -509,17 +588,17 @@ export function Lab3D({ onToast }) {
         <div className="lab-controls">
           <div className="control-box">
             <span className="control-box-title">
-              <i className="fa-solid fa-cube"></i> 3D STRUCTURAL MODEL
+              <i className="fa-solid fa-hammer"></i> ASGARDIAN RELIC STATE
             </span>
             <div className="lab-pill-grid">
-              {shapes.map((s) => (
+              {hammerModes.map((m) => (
                 <button
-                  key={s.key}
-                  className={`lab-pill ${currentShape === s.key ? 'active' : ''}`}
-                  onClick={() => changeShape(s.key)}
+                  key={m.key}
+                  className={`lab-pill ${currentMode === m.key ? 'active' : ''}`}
+                  onClick={() => changeHammerMode(m.key)}
                 >
-                  <i className={s.icon} style={{ marginRight: '6px' }}></i>
-                  {s.label}
+                  <i className={m.icon} style={{ marginRight: '6px' }}></i>
+                  {m.label}
                 </button>
               ))}
             </div>
@@ -527,7 +606,7 @@ export function Lab3D({ onToast }) {
 
           <div className="control-box">
             <span className="control-box-title">
-              <i className="fa-solid fa-palette"></i> SPECTRUM & REFLECTION ACCENT
+              <i className="fa-solid fa-palette"></i> SPECTRUM & LIGHTNING ACCENT
             </span>
             <div className="lab-pill-grid">
               {colors.map((c) => (
@@ -561,18 +640,18 @@ export function Lab3D({ onToast }) {
               className={`btn btn-cyber-secondary w-full ${isWireframe ? 'active' : ''}`}
               onClick={toggleWireframe}
             >
-              <i className={isWireframe ? "fa-solid fa-cube" : "fa-solid fa-vector-square"}></i>
-              <span>{isWireframe ? 'Switch to Photorealistic Solid' : 'Switch to Lattice Wireframe'}</span>
+              <i className={isWireframe ? "fa-solid fa-hammer" : "fa-solid fa-vector-square"}></i>
+              <span>{isWireframe ? 'Switch to Photorealistic Uru Solid' : 'Switch to Lattice CAD Wireframe'}</span>
             </button>
           </div>
 
           <div className="lab-stats-terminal">
             <div className="stat-row">
-              <span className="stat-k">ACTIVE MODEL</span>
+              <span className="stat-k">ACTIVE RELIC</span>
               <span className="stat-v neon-accent">{activeSpec.title}</span>
             </div>
             <div className="stat-row">
-              <span className="stat-k">SPECIFICATION</span>
+              <span className="stat-k">INSCRIPTION</span>
               <span className="stat-v" style={{ fontSize: '1.05rem', textAlign: 'right' }}>
                 {activeSpec.details}
               </span>
@@ -582,8 +661,10 @@ export function Lab3D({ onToast }) {
               <span className="stat-v">{activeSpec.material}</span>
             </div>
             <div className="stat-row">
-              <span className="stat-k">TONE MAPPING</span>
-              <span className="stat-v">ACES Filmic Studio HDR</span>
+              <span className="stat-k">ODIN'S ENCHANTMENT</span>
+              <span className="stat-v" style={{ fontStyle: 'italic', color: '#fbbf24' }}>
+                "Whosoever holds this hammer..."
+              </span>
             </div>
             <div className="stat-row">
               <span className="stat-k">FRAME RATE</span>

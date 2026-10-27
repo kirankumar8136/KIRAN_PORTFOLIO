@@ -13,6 +13,9 @@ yarn-error.log*
 # OS / Editor
 .DS_Store
 Thumbs.db
+desktop.ini
+Screenshot*.png
 .vscode/
 .idea/
 thor-stormbreaker-in-hand-sk-3840x2160.jpg
+/mjolnir_thors_hammer.glb
