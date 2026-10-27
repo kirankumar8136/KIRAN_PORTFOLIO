@@ -40,7 +40,7 @@ export function Gallery({ onOpenStoryModal }) {
       particleCount: 30,
       spread: 70,
       scalar: 1.3,
-      colors: ['#ff003c', '#ff2a55', '#dc2626', '#f59e0b', '#8b5cf6']
+      colors: ['#00d4ff', '#38bdf8', '#fbbf24', '#60a5fa', '#ffffff']
     });
   };
 

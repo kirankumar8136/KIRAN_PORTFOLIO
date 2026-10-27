@@ -37,7 +37,7 @@ export function TerminalManifesto({ onToast }) {
             <span className="dot dot-yellow"></span>
             <span className="dot dot-green"></span>
           </div>
-          <span className="terminal-title">kiran@quantum-workstation:~# cat manifesto.json</span>
+          <span className="terminal-title">kiran@asgardian-thunder-station:~# cat manifesto.json</span>
           <div className="terminal-actions">
             <button className="terminal-copy-btn fun-wobble-hover" onClick={copyManifesto} title="Copy JSON">
               <i className={`fa-regular ${copied ? 'fa-circle-check' : 'fa-copy'}`}></i>

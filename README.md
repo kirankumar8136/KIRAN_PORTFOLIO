@@ -46,21 +46,19 @@ npm run preview
    - **Party / Fun Mode Button (🎉)**: Header button that unleashes multi-cannon confetti explosions and floating meme icons (🚀, 💻, 🍕, 👾, ⚡, 🤖, 🕶️, ☕).
    - **Byte-Bot 3000 Companion**: Floating AI bot that dances, wiggles, and tells developer jokes on click.
    - **Synthesized UI Audio**: Web Audio API sound synthesizer with funny boing, laser pew-pew, level-up chimes, and duck quacks.
-5. **Massive 3D High-Detailed Centerpiece Background (WebGL / Three.js)**:
-   - Replaced 2D binary matrix rain with a colossal, multi-tier **Singularity Reactor / Dyson Megastructure**:
-     - Pulsating polyhedral crystalline core with inner plasma light
-     - Multi-tier gyroscopic gimbal rings with mechanical teeth, capacitor pods, and radiator vents
-     - Colossal outer Dyson ring with double-rail trusses, docking spires, and continuous sequential energy chase lights
-     - Concentric holographic HUD targeting reticles & autonomous sensor drone swarm
-     - Volumetric deep-space cyber ember field (1,600 particles)
-   - **Full Interactivity**:
-     - Smooth 3D mouse parallax and camera spring damping
-     - Interactive 3D specular point light tracking the cursor in real-time
-     - Free 3D orbital drag-to-spin with momentum decay
-     - Click / tap reactor shockwave burst (core flare, expanding shockwave ring, particle blast)
-     - Scroll-responsive spatial camera tracking
-   - Multiple modes switchable via HUD: **Singularity Reactor**, **Titan Spire**, and **Hyper-Torus**.
-6. **Cyber Crimson Red Theme**:
-   - Complete visual redesign featuring radiant `#ff003c` laser crimson neon, ruby secondary accents, obsidian-tinted glassmorphic cards, and customizable chromatic spectrums via the 3D Engine Controller.
+5. **Avengers Thor Theme & React Bits `<DitherVeil />` Background**:
+   - Integrated **React Bits `<DitherVeil />`** component powered by `ogl` WebGL shaders, veiling Thor wielding Stormbreaker with dynamic Floyd-Steinberg error-diffusion dithering.
+   - **Interactive Animated Lightning & Thunder Engine**:
+     - Real-time procedural branching lightning bolts striking from storm clouds.
+     - Interactive cursor electrical arcs that track and crackle towards pointer movements.
+     - Click / tap thunderstrike: triggers explosive lightning bolts, expanding electric shockwaves, spark bursts, and synthetic thunder audio.
+     - Ambient atmospheric sheet lightning flashes illuminating the dithered Thor background.
+     - 70+ floating electric spark embers drifting across the screen.
+   - **Hero Avatar Updated to Thor**:
+     - Replaced avatar portrait with the 4K Avengers Thor with Stormbreaker.
+     - Equipped with electric lightning frames, orbital Asgardian runes, and floating power tags (`⚡ GOD OF THUNDER`, `🔨 STORMBREAKER`, `✨ BIFROST POWER`).
+6. **Asgardian Electric Blue & Gold Palette**:
+   - Electric Storm Cyan (`#00d4ff`), Stormbreaker Deep Blue (`#2563eb`), and Bifrost Radiant Gold (`#fbbf24`).
+   - Midnight cosmic storm glassmorphism cards and lightning hover effects.
 7. **Interactive 3D Lab**:
    - Dedicated **3D Lab** WebGL canvas where users can inspect CAD architectural models (Eiffel Tower), realistic vehicles (Nissan GT-R R34), and complex torus knots with studio HDR reflections and PBR shaders.

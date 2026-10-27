@@ -172,3 +172,49 @@ export function playWarpSound() {
     osc.stop(now + 0.3);
   } catch (e) {}
 }
+
+// Avengers Thor: Thunder & Lightning Strike Synthesizer Sound
+export function playThunderSound() {
+  if (!soundEnabled) return;
+  try {
+    const ctx = getCtx();
+    const now = ctx.currentTime;
+
+    // Sub bass rumble oscillator
+    const osc = ctx.createOscillator();
+    const oscGain = ctx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(110, now);
+    osc.frequency.exponentialRampToValueAtTime(28, now + 0.7);
+    oscGain.gain.setValueAtTime(0.12, now);
+    oscGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.85);
+    osc.connect(oscGain);
+    oscGain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.85);
+
+    // Crackling lightning electric noise burst
+    const bufferSize = Math.floor(ctx.sampleRate * 0.35);
+    const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const output = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      output[i] = Math.random() * 2 - 1;
+    }
+    const whiteNoise = ctx.createBufferSource();
+    whiteNoise.buffer = noiseBuffer;
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(1600, now);
+    filter.frequency.exponentialRampToValueAtTime(180, now + 0.35);
+
+    const noiseGain = ctx.createGain();
+    noiseGain.gain.setValueAtTime(0.09, now);
+    noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+    whiteNoise.connect(filter);
+    filter.connect(noiseGain);
+    noiseGain.connect(ctx.destination);
+    whiteNoise.start(now);
+    whiteNoise.stop(now + 0.35);
+  } catch (e) {}
+}

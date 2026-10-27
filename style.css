@@ -4,21 +4,21 @@
    ========================================================================== */
 
 :root {
-    /* Dynamic Theme Colors (Cyber Crimson Red) */
-    --primary-neon: #ff003c;
-    --secondary-neon: #dc2626;
-    --accent-neon: #ff2a55;
-    --amber-neon: #f59e0b;
+    /* Dynamic Theme Colors (Avengers Thor: God of Thunder Theme) */
+    --primary-neon: #00d4ff;
+    --secondary-neon: #2563eb;
+    --accent-neon: #38bdf8;
+    --amber-neon: #fbbf24;
     --emerald-neon: #10b981;
-    --danger-neon: #ff003c;
+    --danger-neon: #ef4444;
 
     /* Base Palette */
-    --bg-darkest: #080305;
-    --bg-darker: #0e0508;
-    --bg-card: rgba(18, 8, 12, 0.78);
-    --bg-card-hover: rgba(28, 11, 17, 0.92);
+    --bg-darkest: #030712;
+    --bg-darker: #060e20;
+    --bg-card: rgba(8, 16, 36, 0.78);
+    --bg-card-hover: rgba(14, 26, 56, 0.92);
     --glass-border: rgba(255, 255, 255, 0.12);
-    --glass-border-glow: rgba(255, 0, 60, 0.4);
+    --glass-border-glow: rgba(0, 212, 255, 0.45);
 
     /* Text */
     --text-primary: #f8fafc;
@@ -259,7 +259,7 @@ body.cyber-theme {
 .hud-btn.active {
     border-color: var(--primary-neon);
     color: var(--primary-neon);
-    box-shadow: 0 0 15px rgba(255, 0, 60, 0.3);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
     transform: translateY(-1px);
 }
 
@@ -285,7 +285,7 @@ body.cyber-theme {
     border: 1px solid var(--primary-neon);
     border-radius: 16px;
     padding: 2rem;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 0, 60, 0.2);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 212, 255, 0.2);
     z-index: 998;
     transform: translateY(-20px) scale(0.95);
     opacity: 0;
@@ -359,10 +359,10 @@ body.cyber-theme {
 
 .hud-opt-btn:hover,
 .hud-opt-btn.active {
-    background: rgba(255, 0, 60, 0.15);
+    background: rgba(0, 212, 255, 0.15);
     border-color: var(--primary-neon);
     color: #fff;
-    box-shadow: 0 0 10px rgba(255, 0, 60, 0.2);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
 }
 
 .hud-color-swatches {
@@ -379,7 +379,7 @@ body.cyber-theme {
     transition: var(--trans-smooth);
 }
 
-.color-swatch.cyan { background: #ff003c; box-shadow: 0 0 10px #ff003c; }
+.color-swatch.cyan { background: #00d4ff; box-shadow: 0 0 10px #00d4ff; }
 .color-swatch.violet { background: #ec4899; box-shadow: 0 0 10px #ec4899; }
 .color-swatch.matrix { background: #10b981; box-shadow: 0 0 10px #10b981; }
 .color-swatch.amber { background: #f59e0b; box-shadow: 0 0 10px #f59e0b; }
@@ -420,7 +420,7 @@ section {
     color: var(--primary-neon);
     letter-spacing: 2px;
     margin-bottom: 1rem;
-    text-shadow: 0 0 8px rgba(255, 0, 60, 0.4);
+    text-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
 }
 
 .section-heading {
@@ -436,7 +436,7 @@ section {
     background: linear-gradient(135deg, var(--primary-neon), var(--accent-neon));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 25px rgba(255, 0, 60, 0.4);
+    text-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
 }
 
 .section-sub {
@@ -472,12 +472,12 @@ section {
     color: #07070a;
     font-weight: 700;
     border: none;
-    box-shadow: 0 0 25px rgba(255, 0, 60, 0.4);
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
 }
 
 .btn-cyber-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 0 35px rgba(255, 0, 60, 0.7);
+    box-shadow: 0 0 35px rgba(0, 212, 255, 0.7);
     color: #000;
 }
 
@@ -485,16 +485,16 @@ section {
     background: rgba(15, 18, 28, 0.8);
     color: var(--text-primary);
     border: 1px solid var(--primary-neon);
-    box-shadow: 0 0 15px rgba(255, 0, 60, 0.15);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.15);
     backdrop-filter: blur(10px);
 }
 
 .btn-cyber-secondary:hover {
-    background: rgba(255, 0, 60, 0.15);
+    background: rgba(0, 212, 255, 0.15);
     border-color: #fff;
     color: #fff;
     transform: translateY(-3px);
-    box-shadow: 0 0 25px rgba(255, 0, 60, 0.35);
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.35);
 }
 
 .btn-cyber-ghost {
@@ -631,7 +631,7 @@ section {
     font-size: 3rem;
     font-weight: 800;
     color: var(--primary-neon);
-    text-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
+    text-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
 }
 
 .metric-label {
@@ -705,7 +705,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: radial-gradient(circle, rgba(255, 0, 60, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
 }
 
 /* Corner HUD Brackets */
@@ -733,7 +733,7 @@ section {
 .ring-outer {
     width: 115%;
     height: 115%;
-    border: 1px dashed rgba(255, 0, 60, 0.35);
+    border: 1px dashed rgba(0, 212, 255, 0.35);
     animation: rotateRing 25s linear infinite;
 }
 
@@ -750,7 +750,7 @@ section {
     width: 100%;
     height: 100%;
     border: 2px solid var(--primary-neon);
-    box-shadow: 0 0 25px rgba(255, 0, 60, 0.4), inset 0 0 25px rgba(255, 0, 60, 0.2);
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.4), inset 0 0 25px rgba(0, 212, 255, 0.2);
 }
 
 @keyframes rotateRing {
@@ -796,7 +796,7 @@ section {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: linear-gradient(180deg, transparent 40%, rgba(255, 0, 60, 0.25) 50%, transparent 60%);
+    background: linear-gradient(180deg, transparent 40%, rgba(0, 212, 255, 0.25) 50%, transparent 60%);
     z-index: 3;
     pointer-events: none;
     animation: scanSweep 4s ease-in-out infinite;
@@ -823,7 +823,7 @@ section {
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 0, 60, 0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 212, 255, 0.2);
     z-index: 6;
     pointer-events: none;
     white-space: nowrap;
@@ -883,7 +883,7 @@ section {
 .lab-viewport {
     position: relative;
     min-height: 440px;
-    background: radial-gradient(circle at center, rgba(255, 0, 60, 0.05) 0%, rgba(7, 7, 10, 0.95) 100%);
+    background: radial-gradient(circle at center, rgba(0, 212, 255, 0.05) 0%, rgba(7, 7, 10, 0.95) 100%);
     border-right: 1px solid var(--glass-border);
     cursor: grab;
 }
@@ -954,10 +954,10 @@ section {
 
 .lab-pill:hover,
 .lab-pill.active {
-    background: rgba(255, 0, 60, 0.15);
+    background: rgba(0, 212, 255, 0.15);
     border-color: var(--primary-neon);
     color: #fff;
-    box-shadow: 0 0 10px rgba(255, 0, 60, 0.25);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.25);
 }
 
 .lab-stats-terminal {
@@ -1003,7 +1003,7 @@ section {
 
 .skill-category-card:hover {
     border-color: var(--glass-border-glow);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 0, 60, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 212, 255, 0.15);
     transform: translateY(-4px);
 }
 
@@ -1017,7 +1017,7 @@ section {
 .cat-icon {
     width: 48px;
     height: 48px;
-    background: rgba(255, 0, 60, 0.1);
+    background: rgba(0, 212, 255, 0.1);
     border: 1px solid var(--primary-neon);
     border-radius: 12px;
     display: flex;
@@ -1025,7 +1025,7 @@ section {
     justify-content: center;
     font-size: 2rem;
     color: var(--primary-neon);
-    box-shadow: 0 0 15px rgba(255, 0, 60, 0.2);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
 }
 
 .cat-title {
@@ -1098,7 +1098,7 @@ section {
 
 .cyber-glass-box:hover {
     border-color: var(--primary-neon);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 0, 60, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 212, 255, 0.2);
     transform: translateY(-4px);
 }
 
@@ -1109,10 +1109,10 @@ section {
     font-family: var(--font-mono);
     font-size: 1.15rem;
     color: var(--primary-neon);
-    background: rgba(255, 0, 60, 0.1);
+    background: rgba(0, 212, 255, 0.1);
     padding: 0.4rem 1.2rem;
     border-radius: 20px;
-    border: 1px solid rgba(255, 0, 60, 0.3);
+    border: 1px solid rgba(0, 212, 255, 0.3);
     width: fit-content;
 }
 
@@ -1194,7 +1194,7 @@ section {
     color: #07070a;
     font-weight: 700;
     border-color: var(--primary-neon);
-    box-shadow: 0 0 20px rgba(255, 0, 60, 0.4);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
 }
 
 .cert-grid {
@@ -1217,14 +1217,14 @@ section {
 
 .cert-card:hover {
     border-color: var(--glass-border-glow);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 0, 60, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 212, 255, 0.2);
     transform: translateY(-5px);
 }
 
 .cert-icon-wrapper {
     width: 52px;
     height: 52px;
-    background: rgba(255, 0, 60, 0.1);
+    background: rgba(0, 212, 255, 0.1);
     border: 1px solid var(--primary-neon);
     border-radius: 14px;
     display: flex;
@@ -1233,7 +1233,7 @@ section {
     font-size: 2.2rem;
     color: var(--primary-neon);
     margin-bottom: 2rem;
-    box-shadow: 0 0 15px rgba(255, 0, 60, 0.2);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
 }
 
 .cert-issuer {
@@ -1293,7 +1293,7 @@ section {
 
 .timeline-node:hover {
     border-color: var(--primary-neon);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 0, 60, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 212, 255, 0.2);
     transform: translateX(6px);
 }
 
@@ -1326,8 +1326,8 @@ section {
 .node-badge {
     font-family: var(--font-mono);
     font-size: 1.1rem;
-    background: rgba(255, 0, 60, 0.1);
-    border: 1px solid rgba(255, 0, 60, 0.3);
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid rgba(0, 212, 255, 0.3);
     padding: 0.2rem 0.8rem;
     border-radius: 4px;
     color: var(--primary-neon);
@@ -1371,10 +1371,10 @@ section {
     max-width: 900px;
     margin: 0 auto;
     background: #090b12;
-    border: 1px solid rgba(255, 0, 60, 0.3);
+    border: 1px solid rgba(0, 212, 255, 0.3);
     border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 0, 60, 0.15);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 212, 255, 0.15);
 }
 
 .terminal-header {
@@ -1457,14 +1457,14 @@ section {
 
 .contact-card:hover {
     border-color: var(--primary-neon);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 0, 60, 0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 212, 255, 0.2);
     transform: translateY(-2px);
 }
 
 .contact-icon {
     width: 48px;
     height: 48px;
-    background: rgba(255, 0, 60, 0.1);
+    background: rgba(0, 212, 255, 0.1);
     border: 1px solid var(--primary-neon);
     border-radius: 12px;
     display: flex;
@@ -1578,7 +1578,7 @@ section {
 
 .cyber-input:focus {
     border-color: var(--primary-neon);
-    box-shadow: 0 0 15px rgba(255, 0, 60, 0.3);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
     background: rgba(11, 14, 22, 0.95);
 }
 
@@ -1716,7 +1716,7 @@ section {
     background: #0d0f17;
     border: 1px solid var(--primary-neon);
     border-radius: 16px;
-    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 30px rgba(255, 0, 60, 0.25);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 212, 255, 0.25);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -1807,7 +1807,7 @@ section {
     font-family: var(--font-mono);
     font-size: 1.3rem;
     color: #fff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 0, 60, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 212, 255, 0.3);
     z-index: 10001;
     transform: translateY(100px);
     opacity: 0;
@@ -1957,3 +1957,4 @@ section {
         justify-content: flex-end;
     }
 }
+

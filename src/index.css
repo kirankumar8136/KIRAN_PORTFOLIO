@@ -4,22 +4,23 @@
    ========================================================================== */
 
 :root {
-  /* Dynamic Theme Colors (Cyber Crimson Red) */
-  --primary-neon: #ff003c;
-  --secondary-neon: #dc2626;
-  --accent-neon: #ff2a55;
-  --purple-neon: #e11d48;
+  /* Dynamic Theme Colors (Avengers Thor: God of Thunder Theme) */
+  --primary-neon: #00d4ff;
+  --secondary-neon: #2563eb;
+  --accent-neon: #38bdf8;
+  --gold-neon: #fbbf24;
+  --purple-neon: #818cf8;
   --amber-neon: #f59e0b;
   --emerald-neon: #10b981;
-  --danger-neon: #ff003c;
+  --danger-neon: #ef4444;
 
-  /* Base Palette (Deep Obsidian with Crimson Undertone) */
-  --bg-darkest: #080305;
-  --bg-darker: #0e0508;
-  --bg-card: rgba(18, 8, 12, 0.78);
-  --bg-card-hover: rgba(28, 11, 17, 0.92);
+  /* Base Palette (Deep Cosmic Asgardian Storm & Midnight Navy) */
+  --bg-darkest: #030712;
+  --bg-darker: #060e20;
+  --bg-card: rgba(8, 16, 36, 0.78);
+  --bg-card-hover: rgba(14, 26, 56, 0.92);
   --glass-border: rgba(255, 255, 255, 0.12);
-  --glass-border-glow: rgba(255, 0, 60, 0.4);
+  --glass-border-glow: rgba(0, 212, 255, 0.45);
 
   /* Text */
   --text-primary: #f8fafc;
@@ -75,7 +76,7 @@ body.cyber-theme {
   background: var(--bg-darkest);
 }
 ::-webkit-scrollbar-thumb {
-  background: #2b1117;
+  background: #0d1b38;
   border-radius: 4px;
   border: 1px solid var(--glass-border);
 }
@@ -84,7 +85,37 @@ body.cyber-theme {
   box-shadow: 0 0 12px var(--primary-neon);
 }
 
-/* Fullscreen Background Canvas */
+/* Fullscreen Background Container & Layers */
+.thor-bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  overflow: hidden;
+  background-color: #030712;
+}
+
+.thor-bg-dither {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.thor-bg-lightning {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
 #bg-canvas {
   position: fixed;
   top: 0;
@@ -95,7 +126,7 @@ body.cyber-theme {
   pointer-events: none;
 }
 
-/* Cybernetic Scanline & Vignette Effect */
+/* Cybernetic Scanline & Thunder Vignette Effect */
 .cyber-overlay {
   position: fixed;
   top: 0;
@@ -104,10 +135,10 @@ body.cyber-theme {
   height: 100vh;
   z-index: -1;
   pointer-events: none;
-  background: radial-gradient(circle at center, transparent 35%, rgba(8, 3, 5, 0.78) 100%),
-              linear-gradient(rgba(32, 6, 14, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
+  background: radial-gradient(circle at center, transparent 35%, rgba(3, 7, 18, 0.75) 100%),
+              linear-gradient(rgba(0, 212, 255, 0.02) 50%, rgba(0, 0, 0, 0.25) 50%);
   background-size: 100% 100%, 100% 4px;
-  opacity: 0.65;
+  opacity: 0.7;
 }
 
 /* ==========================================================================
@@ -120,8 +151,8 @@ body.cyber-theme {
 }
 .fun-bounce-card:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(255, 0, 60, 0.18), 0 0 25px rgba(0, 0, 0, 0.8);
-  border-color: rgba(255, 0, 60, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 212, 255, 0.18), 0 0 25px rgba(0, 0, 0, 0.8);
+  border-color: rgba(0, 212, 255, 0.4);
 }
 
 /* Wobbly button bounce */
@@ -181,9 +212,9 @@ body.cyber-theme {
   font-weight: 700;
   font-size: 1.35rem;
   max-width: 280px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(255, 0, 60, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(0, 212, 255, 0.5);
   z-index: 50;
-  border: 3px solid #ff003c;
+  border: 3px solid #00d4ff;
   line-height: 1.4;
 }
 .avatar-speech-bubble p {
@@ -203,7 +234,7 @@ body.cyber-theme {
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-top: 12px solid #ff003c;
+  border-top: 12px solid #00d4ff;
 }
 
 
@@ -261,7 +292,7 @@ body.cyber-theme {
 
 .logo-text {
   color: #ffffff;
-  text-shadow: 0 0 15px rgba(255, 0, 60, 0.6);
+  text-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
 }
 
 .live-dot {
@@ -378,7 +409,7 @@ body.cyber-theme {
 .hud-btn.active {
   border-color: var(--primary-neon);
   color: var(--primary-neon);
-  box-shadow: 0 0 15px rgba(255, 0, 60, 0.3);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
   transform: translateY(-1px);
 }
 
@@ -404,7 +435,7 @@ body.cyber-theme {
   border: 1px solid var(--primary-neon);
   border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 0, 60, 0.2);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 212, 255, 0.2);
   z-index: 998;
   font-family: var(--font-mono);
   animation: comicPop 0.3s ease-out;
@@ -472,10 +503,10 @@ body.cyber-theme {
 
 .hud-opt-btn:hover,
 .hud-opt-btn.active {
-  background: rgba(255, 0, 60, 0.12);
+  background: rgba(0, 212, 255, 0.12);
   border-color: var(--primary-neon);
   color: #fff;
-  box-shadow: 0 0 10px rgba(255, 0, 60, 0.25);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.25);
 }
 
 .hud-color-swatches {
@@ -492,11 +523,10 @@ body.cyber-theme {
   transition: var(--trans-fast);
 }
 
-.color-swatch.red { background: #ff003c; box-shadow: 0 0 12px #ff003c; }
-.color-swatch.ruby { background: #e11d48; box-shadow: 0 0 12px #e11d48; }
-.color-swatch.matrix { background: #10b981; box-shadow: 0 0 10px #10b981; }
-.color-swatch.amber { background: #f59e0b; box-shadow: 0 0 10px #f59e0b; }
-.color-swatch.cyan { background: #00f0ff; box-shadow: 0 0 10px #00f0ff; }
+.color-swatch.thor { background: #00d4ff; box-shadow: 0 0 12px #00d4ff; }
+.color-swatch.bifrost { background: #fbbf24; box-shadow: 0 0 12px #fbbf24; }
+.color-swatch.stormbreaker { background: #38bdf8; box-shadow: 0 0 12px #38bdf8; }
+.color-swatch.crimson { background: #ff003c; box-shadow: 0 0 10px #ff003c; }
 
 .color-swatch.active {
   border-color: #fff;
@@ -573,7 +603,7 @@ body.cyber-theme {
 
 .neon-text {
   color: var(--primary-neon);
-  text-shadow: 0 0 25px rgba(255, 0, 60, 0.5);
+  text-shadow: 0 0 25px rgba(0, 212, 255, 0.5);
 }
 
 .typewriter-container {
@@ -678,12 +708,12 @@ body.cyber-theme {
   background: var(--primary-neon);
   color: #000;
   border: 1px solid var(--primary-neon);
-  box-shadow: 0 0 20px rgba(255, 0, 60, 0.4);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
 }
 .btn-cyber-primary:hover {
   background: #fff;
   border-color: #fff;
-  box-shadow: 0 0 30px rgba(255, 0, 60, 0.7);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.7);
 }
 
 .btn-cyber-secondary {
@@ -695,7 +725,7 @@ body.cyber-theme {
 .btn-cyber-secondary:hover {
   border-color: var(--primary-neon);
   color: var(--primary-neon);
-  box-shadow: 0 0 20px rgba(255, 0, 60, 0.25);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.25);
 }
 
 .btn-cyber-accent {
@@ -766,7 +796,7 @@ body.cyber-theme {
 .social-circle:hover {
   border-color: var(--primary-neon);
   color: var(--primary-neon);
-  box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
   transform: translateY(-3px);
 }
 
@@ -784,19 +814,19 @@ body.cyber-theme {
   width: 380px;
   height: 480px;
   background: rgba(13, 16, 26, 0.6);
-  border: 1px solid rgba(255, 0, 60, 0.25);
+  border: 1px solid rgba(0, 212, 255, 0.25);
   border-radius: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(255, 0, 60, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(0, 212, 255, 0.08);
   transition: var(--trans-spring);
 }
 
 .holo-frame-wrapper:hover {
   border-color: var(--primary-neon);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 0, 60, 0.3);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 212, 255, 0.3);
 }
 
 .corner-bracket {
@@ -814,7 +844,7 @@ body.cyber-theme {
 .orbital-ring {
   position: absolute;
   border-radius: 50%;
-  border: 1px dashed rgba(255, 0, 60, 0.3);
+  border: 1px dashed rgba(0, 212, 255, 0.3);
   pointer-events: none;
 }
 .ring-outer { width: 340px; height: 340px; animation: spinClockwise 30s infinite linear; }
@@ -830,8 +860,8 @@ body.cyber-theme {
   height: 350px;
   border-radius: 18px;
   overflow: hidden;
-  border: 2px solid rgba(255, 0, 60, 0.4);
-  box-shadow: 0 0 25px rgba(255, 0, 60, 0.2);
+  border: 2px solid rgba(0, 212, 255, 0.4);
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.2);
 }
 
 .avatar-img {
@@ -938,7 +968,7 @@ body.cyber-theme {
 .lab-viewport {
   position: relative;
   min-height: 420px;
-  background: radial-gradient(circle at center, rgba(255, 0, 60, 0.05), transparent 70%);
+  background: radial-gradient(circle at center, rgba(0, 212, 255, 0.05), transparent 70%);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 14px;
   overflow: hidden;
@@ -1010,15 +1040,15 @@ body.cyber-theme {
 
 .lab-pill:hover,
 .lab-pill.active {
-  background: rgba(255, 0, 60, 0.15);
+  background: rgba(0, 212, 255, 0.15);
   border-color: var(--primary-neon);
   color: #fff;
-  box-shadow: 0 0 10px rgba(255, 0, 60, 0.25);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.25);
 }
 
 .lab-stats-terminal {
   background: #080a10;
-  border: 1px solid rgba(255, 0, 60, 0.2);
+  border: 1px solid rgba(0, 212, 255, 0.2);
   border-radius: 10px;
   padding: 1.4rem;
   font-family: var(--font-mono);
@@ -1136,7 +1166,7 @@ body.cyber-theme {
   position: absolute;
   top: -24px;
   right: 0;
-  background: rgba(255, 0, 60, 0.15);
+  background: rgba(0, 212, 255, 0.15);
   border: 1px solid var(--primary-neon);
   color: var(--primary-neon);
   font-family: var(--font-mono);
@@ -1172,7 +1202,7 @@ body.cyber-theme {
   font-family: var(--font-mono);
   font-size: 1.15rem;
   color: var(--primary-neon);
-  background: rgba(255, 0, 60, 0.1);
+  background: rgba(0, 212, 255, 0.1);
   padding: 0.4rem 1.2rem;
   border-radius: 20px;
   margin-bottom: 1.8rem;
@@ -1252,10 +1282,10 @@ body.cyber-theme {
 
 .cert-filter-btn:hover,
 .cert-filter-btn.active {
-  background: rgba(255, 0, 60, 0.15);
+  background: rgba(0, 212, 255, 0.15);
   border-color: var(--primary-neon);
   color: #fff;
-  box-shadow: 0 0 15px rgba(255, 0, 60, 0.25);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.25);
 }
 
 .cert-grid {
@@ -1279,8 +1309,8 @@ body.cyber-theme {
   width: 50px;
   height: 50px;
   border-radius: 12px;
-  background: rgba(255, 0, 60, 0.1);
-  border: 1px solid rgba(255, 0, 60, 0.25);
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1686,7 +1716,7 @@ body.cyber-theme {
 .story-bold-highlight {
   color: #fff;
   font-weight: 700;
-  text-shadow: 0 0 12px rgba(255, 0, 60, 0.4);
+  text-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
 }
 
 .story-traits-grid {
@@ -1805,7 +1835,7 @@ body.cyber-theme {
   gap: 0.6rem;
 }
 .terminal-copy-btn:hover {
-  background: rgba(255, 0, 60, 0.15);
+  background: rgba(0, 212, 255, 0.15);
   border-color: var(--primary-neon);
 }
 
@@ -1858,8 +1888,8 @@ body.cyber-theme {
   width: 52px;
   height: 52px;
   border-radius: 12px;
-  background: rgba(255, 0, 60, 0.1);
-  border: 1px solid rgba(255, 0, 60, 0.25);
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1909,7 +1939,7 @@ body.cyber-theme {
 }
 
 .action-btn:hover {
-  background: rgba(255, 0, 60, 0.15);
+  background: rgba(0, 212, 255, 0.15);
   border-color: var(--primary-neon);
   color: var(--primary-neon);
 }
@@ -1970,8 +2000,8 @@ body.cyber-theme {
 
 .cyber-input:focus {
   border-color: var(--primary-neon);
-  box-shadow: 0 0 15px rgba(255, 0, 60, 0.25);
-  background: rgba(255, 0, 60, 0.03);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.25);
+  background: rgba(0, 212, 255, 0.03);
 }
 
 /* ==========================================================================
@@ -2034,7 +2064,7 @@ body.cyber-theme {
 .footer-socials a:hover {
   border-color: var(--primary-neon);
   color: var(--primary-neon);
-  box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
 }
 
 .footer-bottom {
@@ -2094,7 +2124,7 @@ body.cyber-theme {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 0, 60, 0.3);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 212, 255, 0.3);
   z-index: 2;
   animation: comicPop 0.35s ease-out;
 }
@@ -2173,7 +2203,7 @@ body.cyber-theme {
   display: flex;
   align-items: center;
   gap: 1.2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 0, 60, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 212, 255, 0.35);
   z-index: 9999;
   backdrop-filter: blur(15px);
   animation: toastIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -2259,4 +2289,5 @@ body.cyber-theme {
     text-align: center;
   }
 }
+
 

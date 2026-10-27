@@ -109,10 +109,10 @@ export function Navbar({ soundEnabled, setSoundEnabled, onToggleHud, hudOpen }) 
               playBlipSound(800, 0.04);
               onToggleHud();
             }}
-            title="Configure 3D Environment"
+            title="Configure Thor Storm & Lightning FX"
           >
-            <i className="fa-solid fa-cube"></i>
-            <span className="btn-text">3D FX</span>
+            <i className="fa-solid fa-cloud-bolt"></i>
+            <span className="btn-text">THOR FX</span>
           </button>
 
           {/* Mobile Menu Hamburger */}

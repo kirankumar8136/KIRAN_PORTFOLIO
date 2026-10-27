@@ -14,7 +14,7 @@ import {
 export function Lab3D({ onToast }) {
   const canvasRef = useRef(null);
   const [currentShape, setCurrentShape] = useState('eiffel');
-  const [currentColor, setCurrentColor] = useState('#ff003c');
+  const [currentColor, setCurrentColor] = useState('#00d4ff');
   const [isWireframe, setIsWireframe] = useState(false); // Default to realistic Solid Shaded mode!
   const [autoRotate, setAutoRotate] = useState(true);
 
@@ -29,7 +29,7 @@ export function Lab3D({ onToast }) {
   // Store user interaction states in refs to prevent closure staling
   const stateRef = useRef({
     shape: 'eiffel',
-    color: '#ff003c',
+    color: '#00d4ff',
     wireframe: false,
     autoRotate: true,
     targetZoom: 5.6,
@@ -127,7 +127,7 @@ export function Lab3D({ onToast }) {
     groundGridRef.current = groundGroup;
 
     // 6. Instantiate Initial Detailed Model (Eiffel Tower)
-    const initialModel = createDetailedEiffelTower('#ff003c', false, envMap);
+    const initialModel = createDetailedEiffelTower('#00d4ff', false, envMap);
     scene.add(initialModel);
     currentModelGroupRef.current = initialModel;
 
@@ -378,10 +378,10 @@ export function Lab3D({ onToast }) {
   ];
 
   const colors = [
-    { hex: '#ff003c', label: 'Crimson Laser' },
-    { hex: '#ec4899', label: 'Neon Pink' },
-    { hex: '#10b981', label: 'Emerald Grid' },
-    { hex: '#f59e0b', label: 'Amber Core' }
+    { hex: '#00d4ff', label: 'Thunder Lightning' },
+    { hex: '#fbbf24', label: 'Bifrost Gold' },
+    { hex: '#38bdf8', label: 'Sky Arc' },
+    { hex: '#ff003c', label: 'Crimson Flare' }
   ];
 
   // Dynamic engineering specs based on the active model

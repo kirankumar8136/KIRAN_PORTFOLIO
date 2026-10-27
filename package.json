@@ -11,6 +11,7 @@
   "dependencies": {
     "canvas-confetti": "^1.9.4",
     "lucide-react": "^1.16.0",
+    "ogl": "^1.0.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "three": "^0.170.0"

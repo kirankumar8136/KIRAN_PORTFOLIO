@@ -34,7 +34,7 @@ export const AI_CHARACTERS = [
     category: "vision",
     badge: "MISSION ACCOMPLISHED",
     image: "/gallery/story_1_reality.png",
-    accentColor: "#ff003c",
+    accentColor: "#00d4ff",
     hypes: 582,
     shortQuote: "Same boy... bigger dreams... now running in production.",
     storySectionTitle: "BIGGER DREAMS STORY",
@@ -115,7 +115,7 @@ export const SKILL_CATEGORIES = [
     title: "AI & Modern Development",
     subtitle: "Algorithms & Frontend Engineering",
     icon: "fa-solid fa-microchip",
-    color: "#ff003c",
+    color: "#00d4ff",
     skills: [
       { name: "HTML5 / Semantic Web", pct: 97, funnyNote: "No div-soup allowed" },
       { name: "CSS3 / Modern Layouts & Animations", pct: 95, funnyNote: "Flexbox whisperer" },

@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { PERSONAL_INFO } from '../data/portfolioData';
-import { playBlipSound, playLaserSound, playLevelUpSound } from '../utils/audio';
+import { playBlipSound, playLaserSound, playLevelUpSound, playThunderSound } from '../utils/audio';
 
 export function Hero() {
   const [avatarPulse, setAvatarPulse] = useState(false);
 
   // Typewriter effect
   const phrases = [
+    "God of Thunder & Lightning Tech",
     "AI & Data Science Specialist",
     "3D Architectural CAD Designer",
-    "AutoDesk Certified Expert",
-    "Unreal Engine Game Developer",
-    "Cinematic Video Editor",
+    "Unreal Engine 5 Game Developer",
+    "Mjolnir & Stormbreaker Systems",
     "Computer Hardware Engineer"
   ];
   const [currentText, setCurrentText] = useState("");
@@ -46,7 +46,7 @@ export function Hero() {
   }, [charIdx, isDeleting, phraseIdx]);
 
   const handleAvatarClick = () => {
-    playBlipSound(1100, 0.06);
+    playThunderSound();
     setAvatarPulse(true);
     setTimeout(() => {
       setAvatarPulse(false);
@@ -61,11 +61,11 @@ export function Hero() {
         <div className="hero-intel">
           <div className="status-badge">
             <span className="pulse-indicator"></span>
-            <span className="badge-text">STATUS: AVAILABLE FOR SELECT OPPORTUNITIES</span>
+            <span className="badge-text">⚡ STATUS: ASGARDIAN REALM DEFENDER // GOD OF THUNDER</span>
           </div>
 
           <div className="hero-title-group">
-            <p className="hero-greeting">// HELLO WORLD, THIS IS</p>
+            <p className="hero-greeting">// HELLO MIDGARD, THIS IS</p>
             <h1 className="hero-name">
               KIRAN <span className="neon-text">KUMAR K</span>
             </h1>
@@ -184,21 +184,21 @@ export function Hero() {
 
             {/* Portrait Image (Pure center without glasses) */}
             <div className="avatar-portal">
-              <img src="/kiran.jpg" alt="Kiran Kumar K" className="avatar-img" />
+              <img src="/thor.jpg" alt="Thor: God of Thunder" className="avatar-img" />
             </div>
 
             {/* Floating Cyber Tags */}
             <div className="float-tag tag-top">
-              <i className="fa-solid fa-cube"></i>
-              <span>3D ARCHITECT</span>
+              <i className="fa-solid fa-bolt"></i>
+              <span>GOD OF THUNDER</span>
             </div>
             <div className="float-tag tag-bottom">
-              <i className="fa-solid fa-brain"></i>
-              <span>AI & DATA SCIENCE</span>
+              <i className="fa-solid fa-cloud-bolt"></i>
+              <span>MJOLNIR & STORMBREAKER</span>
             </div>
             <div className="float-tag tag-right">
-              <i className="fa-solid fa-gamepad"></i>
-              <span>UNREAL ENGINE</span>
+              <i className="fa-solid fa-wand-magic-sparkles"></i>
+              <span>BIFROST POWER</span>
             </div>
           </div>
         </div>

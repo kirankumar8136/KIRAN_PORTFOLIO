@@ -5,17 +5,16 @@ export function HudPanel({ isOpen, mode, setMode, theme, setTheme, onClose, onTo
   if (!isOpen) return null;
 
   const modes = [
-    { key: 'reactor', label: 'Singularity Reactor', icon: 'fa-solid fa-atom' },
-    { key: 'spire', label: 'Titan Spire', icon: 'fa-solid fa-monument' },
-    { key: 'torus', label: 'Hyper-Torus', icon: 'fa-solid fa-ring' }
+    { key: 'storm', label: 'Thunder Realm', icon: 'fa-solid fa-cloud-bolt' },
+    { key: 'bifrost', label: 'Bifrost Sky', icon: 'fa-solid fa-wand-magic-sparkles' },
+    { key: 'mjolnir', label: 'Mjolnir Core', icon: 'fa-solid fa-bolt' }
   ];
 
   const themes = [
-    { key: 'red', label: 'Crimson Red', class: 'red' },
-    { key: 'ruby', label: 'Blood Ruby', class: 'ruby' },
-    { key: 'matrix', label: 'Matrix Emerald', class: 'matrix' },
-    { key: 'amber', label: 'Solar Amber', class: 'amber' },
-    { key: 'cyan', label: 'Cyber Cyan', class: 'cyan' }
+    { key: 'thor', label: 'Electric Thor', class: 'thor' },
+    { key: 'bifrost', label: 'Asgardian Gold', class: 'bifrost' },
+    { key: 'stormbreaker', label: 'Stormbreaker Sky', class: 'stormbreaker' },
+    { key: 'crimson', label: 'Crimson Bifrost', class: 'crimson' }
   ];
 
   const handleModeChange = (m) => {

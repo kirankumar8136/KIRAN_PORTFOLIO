@@ -18,48 +18,49 @@ import { Toast } from './components/Toast';
 export function App() {
   const [soundEnabled, setSoundEnabled] = useState(false);
   const [hudOpen, setHudOpen] = useState(false);
-  const [threeMode, setThreeMode] = useState('reactor');
-  const [threeTheme, setThreeTheme] = useState('red');
+  const [threeMode, setThreeMode] = useState('storm');
+  const [threeTheme, setThreeTheme] = useState('thor');
   const [modalData, setModalData] = useState(null);
   const [toastMessage, setToastMessage] = useState(null);
 
   useEffect(() => {
     const root = document.documentElement;
-    if (threeTheme === 'red') {
+    if (threeTheme === 'thor') {
+      root.style.setProperty('--primary-neon', '#00d4ff');
+      root.style.setProperty('--secondary-neon', '#2563eb');
+      root.style.setProperty('--accent-neon', '#38bdf8');
+      root.style.setProperty('--glass-border-glow', 'rgba(0, 212, 255, 0.45)');
+      root.style.setProperty('--bg-darkest', '#030712');
+      root.style.setProperty('--bg-darker', '#060e20');
+      root.style.setProperty('--bg-card', 'rgba(8, 16, 36, 0.78)');
+      root.style.setProperty('--bg-card-hover', 'rgba(14, 26, 56, 0.92)');
+    } else if (threeTheme === 'bifrost') {
+      root.style.setProperty('--primary-neon', '#fbbf24');
+      root.style.setProperty('--secondary-neon', '#f59e0b');
+      root.style.setProperty('--accent-neon', '#fde047');
+      root.style.setProperty('--glass-border-glow', 'rgba(251, 191, 36, 0.45)');
+      root.style.setProperty('--bg-darkest', '#06050b');
+      root.style.setProperty('--bg-darker', '#0d0a17');
+      root.style.setProperty('--bg-card', 'rgba(16, 12, 28, 0.78)');
+      root.style.setProperty('--bg-card-hover', 'rgba(26, 20, 44, 0.92)');
+    } else if (threeTheme === 'stormbreaker') {
+      root.style.setProperty('--primary-neon', '#38bdf8');
+      root.style.setProperty('--secondary-neon', '#1d4ed8');
+      root.style.setProperty('--accent-neon', '#93c5fd');
+      root.style.setProperty('--glass-border-glow', 'rgba(56, 189, 248, 0.45)');
+      root.style.setProperty('--bg-darkest', '#020617');
+      root.style.setProperty('--bg-darker', '#040d28');
+      root.style.setProperty('--bg-card', 'rgba(6, 14, 38, 0.78)');
+      root.style.setProperty('--bg-card-hover', 'rgba(10, 22, 58, 0.92)');
+    } else if (threeTheme === 'crimson') {
       root.style.setProperty('--primary-neon', '#ff003c');
       root.style.setProperty('--secondary-neon', '#dc2626');
       root.style.setProperty('--accent-neon', '#ff2a55');
-      root.style.setProperty('--glass-border-glow', 'rgba(255, 0, 60, 0.4)');
+      root.style.setProperty('--glass-border-glow', 'rgba(255, 0, 60, 0.45)');
+      root.style.setProperty('--bg-darkest', '#080305');
+      root.style.setProperty('--bg-darker', '#0e0508');
       root.style.setProperty('--bg-card', 'rgba(18, 8, 12, 0.78)');
       root.style.setProperty('--bg-card-hover', 'rgba(28, 11, 17, 0.92)');
-    } else if (threeTheme === 'ruby') {
-      root.style.setProperty('--primary-neon', '#e11d48');
-      root.style.setProperty('--secondary-neon', '#be123c');
-      root.style.setProperty('--accent-neon', '#f43f5e');
-      root.style.setProperty('--glass-border-glow', 'rgba(225, 29, 72, 0.4)');
-      root.style.setProperty('--bg-card', 'rgba(16, 7, 10, 0.78)');
-      root.style.setProperty('--bg-card-hover', 'rgba(26, 10, 15, 0.92)');
-    } else if (threeTheme === 'matrix') {
-      root.style.setProperty('--primary-neon', '#10b981');
-      root.style.setProperty('--secondary-neon', '#059669');
-      root.style.setProperty('--accent-neon', '#34d399');
-      root.style.setProperty('--glass-border-glow', 'rgba(16, 185, 129, 0.4)');
-      root.style.setProperty('--bg-card', 'rgba(8, 18, 13, 0.78)');
-      root.style.setProperty('--bg-card-hover', 'rgba(11, 28, 19, 0.92)');
-    } else if (threeTheme === 'amber') {
-      root.style.setProperty('--primary-neon', '#f59e0b');
-      root.style.setProperty('--secondary-neon', '#d97706');
-      root.style.setProperty('--accent-neon', '#fbbf24');
-      root.style.setProperty('--glass-border-glow', 'rgba(245, 158, 11, 0.4)');
-      root.style.setProperty('--bg-card', 'rgba(20, 14, 8, 0.78)');
-      root.style.setProperty('--bg-card-hover', 'rgba(30, 20, 10, 0.92)');
-    } else if (threeTheme === 'cyan') {
-      root.style.setProperty('--primary-neon', '#00f0ff');
-      root.style.setProperty('--secondary-neon', '#0ea5e9');
-      root.style.setProperty('--accent-neon', '#ec4899');
-      root.style.setProperty('--glass-border-glow', 'rgba(0, 240, 255, 0.35)');
-      root.style.setProperty('--bg-card', 'rgba(15, 18, 28, 0.78)');
-      root.style.setProperty('--bg-card-hover', 'rgba(22, 27, 42, 0.92)');
     }
   }, [threeTheme]);
 
